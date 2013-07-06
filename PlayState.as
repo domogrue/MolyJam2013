@@ -18,21 +18,14 @@ package
 
 			add(new FlxText(0,0,100,"INSERT GAME HERE"));
 			
-			FlxG.log('instantiating tempBar');
-			var tempBar:PlayBar = new PlayBar(20,20,150,PlayBar.spotRadius, 0);
-			FlxG.log('adding tempBar to playBars');
-			playBars.push(tempBar);
-			FlxG.log('playBars.size: ' + playBars.size);
-			FlxG.log('trying to add(playBars.last)');
-			add(playBars.last);
-			FlxG.log('successfully completed add(playBars.last)');
-			FlxG.log('playBars.last.lol: ' + playBars.last.lol);
+			add(playBars[playBars.push(new PlayBar(20,20,150,PlayBar.spotRadius, 0))-1]);
+			//FlxG.log('playBars.length: ' + playBars.length);
 
-			playBars.push(new PlayBar(20,20,150,PlayBar.spotRadius, 1, playBars.last));
-			add(playBars.last);
+			add(playBars[playBars.push(new PlayBar(20,50,150,PlayBar.spotRadius, 1, playBars[playBars.length-1]))-1]);
+			//FlxG.log('playBars.length: ' + playBars.length);
 
-			playBars.push(new PlayBar(20,20,150,PlayBar.spotRadius, 2, playBars.last));
-			add(playBars.last);
+			add(playBars[playBars.push(new PlayBar(20,80,150,PlayBar.spotRadius, 2, playBars[playBars.length-1]))-1]);
+			//FlxG.log('playBars.length: ' + playBars.length);
 		}
 	}
 }

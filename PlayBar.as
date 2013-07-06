@@ -60,12 +60,13 @@ package
 		}
 
 		override public function update():void {
-			FlxG.log('running update');
+			//FlxG.log('running update');
 			super.update();
 
-			FlxG.log('running moveSpot for index ' + this.index);
+			//FlxG.log('running moveSpot for index ' + this.index);
 			moveSpot()
-			FlxG.log('finished moveSpot for index ' + this.index);
+			moveSweetSpot();
+			//FlxG.log('finished moveSpot for index ' + this.index);
 		}
 
 		private function moveSpot():void
@@ -97,19 +98,28 @@ package
 					} else if ( FlxG.keys.R && this.playerSpot.x + PlayBar.velocity < this._x + this._width) {
 						this.playerSpot.x += PlayBar.velocity;
 					}
+					break;
 				case 2:
 					if (FlxG.keys.T && this.playerSpot.x - PlayBar.velocity > this._x) {
 						this.playerSpot.x -= PlayBar.velocity;
 					} else if ( FlxG.keys.Y && this.playerSpot.x + PlayBar.velocity < this._x + this._width) {
 						this.playerSpot.x += PlayBar.velocity;
 					}
+					break;
 				case 3:
-					if (FlxG.keys.Y && this.playerSpot.x - PlayBar.velocity > this._x) {
+					if (FlxG.keys.U && this.playerSpot.x - PlayBar.velocity > this._x) {
 						this.playerSpot.x -= PlayBar.velocity;
-					} else if ( FlxG.keys.U && this.playerSpot.x + PlayBar.velocity < this._x + this._width) {
+					} else if ( FlxG.keys.I && this.playerSpot.x + PlayBar.velocity < this._x + this._width) {
 						this.playerSpot.x += PlayBar.velocity;
 					}
+					break;
 				}
+			}
+		}
+
+		private function moveSweetSpot():void {
+			if ( this.parentBar != null ) {
+				this.sweetSpot.x = parentBar.getSpotPosition().x - this.sweetSpot.width/2;
 			}
 		}
 
