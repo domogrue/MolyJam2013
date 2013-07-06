@@ -8,8 +8,8 @@ package
 		public function MenuState()
 		{
 			var t:FlxText;
-			t = new FlxText(0,FlxG.height/2-10,FlxG.width,"Template");
-			t.size = 16;
+			t = new FlxText(0,FlxG.height/2-10,FlxG.width,"It Feels Incredible!");
+			t.size = 32;
 			t.alignment = "center";
 			add(t);
 			t = new FlxText(FlxG.width/2-50,FlxG.height-20,100,"click to play");
