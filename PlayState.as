@@ -12,6 +12,14 @@ package
 		[Embed(source = "assets/placeholderdude0000.png")] public static var placeholderdude:Class;
 		[Embed(source="assets/placeholderdude20000.png")] public static var placeholderdude2:Class;
 		
+		//CONSTANTS
+		public static const WIDTH:Number = 960;
+		public static const HEIGHT:Number = 480;
+		public static const BAR_OFFSET_X:Number = 16;
+		public static const BAR_OFFSET_Y:Number = 320;
+		public static const BAR_WIDTH:Number = 160;
+		public static const BAR_HEIGHT:Number = 32;
+		
 		//placeholder variables
 		public var player1: FlxSprite;
 		public var player2: FlxSprite;
@@ -24,8 +32,14 @@ package
 		//real variables
 		public var playerBar1: PlayBar;
 		public var playerBar2: PlayBar;
+		public var playerBar3: PlayBar;
+		public var playerBar4: PlayBar;
+		public var playerBar5: PlayBar;
 		
 		public var pointer2:Pointer;
+		public var pointer3:Pointer;
+		public var pointer4:Pointer;
+		public var pointer5:Pointer;
 		
 		//methods!
 		public function PlayState()
@@ -46,10 +60,16 @@ package
 			player5 = new FlxSprite(768, 32, placeholderdude);
 			
 			//playbar
-			playerBar1 = new PlayBar(player1.x+16, player1.y + 192 + 128, 160, 32);
-			playerBar2 = new PlayBar(player2.x + 16, player2.y + 192 + 128, 160, 32, playerBar1);
+			playerBar1 = new PlayBar(player1.x + BAR_OFFSET_X, player1.y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT);
+			playerBar2 = new PlayBar(player2.x + BAR_OFFSET_X, player2.y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, playerBar1);
+			playerBar3 = new PlayBar(player3.x + BAR_OFFSET_X, player3.y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, playerBar2);
+			playerBar4 = new PlayBar(player4.x + BAR_OFFSET_X, player4.y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, playerBar3);
+			playerBar5 = new PlayBar(player5.x + BAR_OFFSET_X, player5.y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, playerBar4);
 			
-			pointer2 = new Pointer(player1.x + 16 + 80 - 8, player1.y + 192 + 128 + 32 + 4);
+			pointer2 = new Pointer(playerBar1.x + BAR_WIDTH / 2, playerBar2.y + 32, 128);
+			pointer3 = new Pointer(playerBar2.x + BAR_WIDTH / 2, playerBar3.y + 32, 128);
+			pointer4 = new Pointer(playerBar3.x + BAR_WIDTH / 2, playerBar4.y + 32, 128);
+			pointer5 = new Pointer(playerBar4.x + BAR_WIDTH / 2, playerBar5.y + 32, 128);
 			
 			//add all
 			add(new FlxText(0, 0, 100, "INSERT GAME HERE"));
@@ -62,7 +82,13 @@ package
 			
 			add(playerBar1);
 			add(playerBar2);
+			add(playerBar3);
+			add(playerBar4);
+			add(playerBar5);
 			add(pointer2);
+			add(pointer3);
+			add(pointer4);
+			add(pointer5);
 		}
 	}
 }

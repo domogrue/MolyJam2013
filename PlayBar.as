@@ -92,6 +92,7 @@ package
 			return new FlxPoint(this.playerSpot.x, this.playerSpot.y);
 		}
 
+		//SETS
 		public function set x(in_x:Number):void {
 			this._x = in_x;
 		}
@@ -106,6 +107,15 @@ package
 
 		public function set height(in_height:Number):void {
 			this._height = in_height;
+		}
+		
+		//GETS
+		public function get x():Number {
+			return this._x;
+		}
+
+		public function get y():Number {
+			return this._y;
 		}
 	}
 }
