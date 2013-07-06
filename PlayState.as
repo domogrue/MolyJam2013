@@ -49,7 +49,7 @@ package
 			playerBar1 = new PlayBar(player1.x+16, player1.y + 192 + 128, 160, 32);
 			playerBar2 = new PlayBar(player2.x + 16, player2.y + 192 + 128, 160, 32, playerBar1);
 			
-			pointer2 = new Pointer(player1.x + 16 + 80 - 8, playerBar2.y + 32 + 4);
+			pointer2 = new Pointer(player1.x + 16 + 80 - 8, player1.y + 192 + 128 + 32 + 4);
 			
 			//add all
 			add(new FlxText(0, 0, 100, "INSERT GAME HERE"));
@@ -59,6 +59,10 @@ package
 			add(player3);
 			add(player4);
 			add(player5);
+			
+			add(playerBar1);
+			add(playerBar2);
+			add(pointer2);
 		}
 	}
 }
