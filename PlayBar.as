@@ -8,11 +8,14 @@ package
 		public static const sweetSpotRange:Number = 30;
 		public static const spotVelocity:Number = 1;
 		public static const sweetVelocity:Number = 0.7;
+		public static const gSpotWidth:Number = 16;
+		public static const gSpotVelocity:Number = 0.8;
 
 
 		private var frame:FlxSprite;
 		private var playerSpot:FlxSprite;
 		private var sweetSpot:FlxSprite;
+		private var gSpot:FlxSprite;
 
 		private var _x:Number;
 		private var _y:Number;
@@ -20,6 +23,7 @@ package
 		private var _height:Number;
 
 		private var isForward:Boolean = true;
+		private var gSpotDirection:int = 1;
 
 		public var index:uint;
 		public var parentBar:PlayBar;
@@ -53,8 +57,12 @@ package
 				this.sweetSpot.makeGraphic(PlayBar.sweetSpotRange*2,height,0xffffffff);
 			}
 
+			this.gSpot = new FlxSprite(this.sweetSpot.x + Math.floor(Math.random()*this.sweetSpot.width) - PlayBar.gSpotWidth, this.y);
+			this.gSpot.makeGraphic(PlayBar.gSpotWidth, this.height, 0xff00ff00);
+
 			this.add(this.frame);
 			this.add(this.sweetSpot);
+			this.add(this.gSpot);
 			this.add(this.playerSpot);
 
 			FlxG.log('Finished running create for index ' + this.index);
@@ -67,6 +75,7 @@ package
 			//FlxG.log('running moveSpot for index ' + this.index);
 			moveSpot()
 			moveSweetSpot();
+			moveGSpot();
 			//FlxG.log('finished moveSpot for index ' + this.index);
 		}
 
@@ -139,6 +148,24 @@ package
 						this.sweetSpot.x -= PlayBar.sweetVelocity;
 					}
 				}
+			}
+		}
+
+		private function moveGSpot():void {
+			// if the gSpot intends to move still within the bounds of the sweetSpot...
+			if ( this.gSpot.x + this.gSpot.width + PlayBar.gSpotVelocity*this.gSpotDirection < this.sweetSpot.x + this.sweetSpot.width &&
+						this.gSpot.x + PlayBar.gSpotVelocity*this.gSpotDirection > this.sweetSpot.x) {
+				// move it
+				this.gSpot.x += PlayBar.gSpotVelocity*gSpotDirection;
+				// otherwise, switch its direction
+			} else {
+				if ( this.gSpot.x + this.gSpot.width + PlayBar.gSpotVelocity*this.gSpotDirection > this.sweetSpot.x + this.sweetSpot.width ) {
+					this.gSpot.x = this.sweetSpot.x + this.sweetSpot.width - this.gSpot.width;
+				} else if ( this.gSpot.x + PlayBar.gSpotVelocity*this.gSpotDirection < this.sweetSpot.x ) {
+					this.gSpot.x = this.sweetSpot.x;
+				}
+				this.gSpotDirection *= -1;
+				this.gSpot.x += PlayBar.gSpotVelocity*gSpotDirection;
 			}
 		}
 

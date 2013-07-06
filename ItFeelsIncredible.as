@@ -8,8 +8,9 @@ package
 	{
 		public function ItFeelsIncredible()
 		{
-			super(960,480,MenuState,1);
+			super(960,480,MenuState,1, 60, 60);
 			forceDebugger = true;
+
 		}
 	}
 }

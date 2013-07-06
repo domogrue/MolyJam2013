@@ -52,14 +52,14 @@ package
 			add(players[players.push(new FlxSprite(192*players.length,32))-1]);
 			players[players.length-1].makeGraphic(192,288,0xffff00ff);
 			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 1, playBars[playBars.length-1]))-1]);
-			add(pointers[pointers.push(new Pointer(playBars[playBars.length-1].x + BAR_WIDTH/2, playBars[playBars.length-1].y + 32, 128))-1]);
+			add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-1].y + 32, 128))-1]);
 			//FlxG.log('playBars.length: ' + playBars.length);
 
 
 			add(players[players.push(new FlxSprite(192*players.length,32))-1]);
 			players[players.length-1].makeGraphic(192,288,0xff00ffff);
 			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 2, playBars[playBars.length-1]))-1]);
-			add(pointers[pointers.push(new Pointer(playBars[playBars.length-1].x + BAR_WIDTH/2, playBars[playBars.length-1].y + 32, 128))-1]);
+			add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-1].y + 32, 128))-1]);
 			//FlxG.log('playBars.length: ' + playBars.length);
 		}
 	}
