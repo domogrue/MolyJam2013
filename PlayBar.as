@@ -146,6 +146,7 @@ package
 			return new FlxPoint(this.playerSpot.x + this.playerSpot.width/2, this.playerSpot.y + this.playerSpot.height/2);
 		}
 
+		//SETS
 		public function set x(in_x:Number):void {
 			this._x = in_x;
 		}
