@@ -10,6 +10,10 @@ package
 		private var players:Array;
 		private var pointers:Array;
 
+		private var excitementLevelFrame:FlxSprite;
+		private var excitementLevel:FlxSprite;
+		private var excitementScore:uint = 0;
+
 		//data
 		[Embed(source = "assets/bottomuiimage0000.png")] public static var bottomuiimage:Class;
 		[Embed(source = "assets/placeholderdude0000.png")] public static var placeholderdude:Class;
@@ -42,6 +46,13 @@ package
 			bottomui = new FlxSprite(0, 320, bottomuiimage);
 			add(bottomui);
 
+			excitementLevelFrame = new FlxSprite(0, BAR_OFFSET_Y);
+			excitementLevelFrame.makeGraphic(192,16,0xff000000);
+			excitementLevel = new FlxSprite(0, BAR_OFFSET_Y);
+			excitementLevel.makeGraphic(10,0,0xff00ff00);
+			add(excitementLevelFrame);
+			add(excitementLevel);
+			FlxG.log('excitementLevelFrame.width: ' + excitementLevelFrame.width);
 
 			add(players[players.push(new FlxSprite(192*players.length,32))-1]);
 			players[players.length-1].makeGraphic(192,288,0xffffff00);
