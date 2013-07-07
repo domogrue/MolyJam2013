@@ -10,6 +10,8 @@ package
 		public static const gSpotWidth:Number = 16;
 		public static const gSpotVelocity:Number = 0.8;
 		public static const spotRadius:Number = 5;
+		public static const player1handWidth:Number = gSpotWidth;
+		public static const player1handSpeed:Number = spotVelocity;
 
 		private var frame:FlxSprite;
 		private var playerSpot:FlxSprite;
@@ -29,6 +31,9 @@ package
 		public var pointer:Pointer;
 
 		private var _gSpotCallback:Function;
+
+		// unused for players other than 0
+		private var player1hand:FlxSprite;
 
 		public function PlayBar(x:Number, y:Number, width:Number, height:Number,  index:uint, gSpotCallback:Function, pointerIn:Pointer = null, parentBar:PlayBar = null)
 		{
@@ -68,23 +73,27 @@ package
 			this.add(this.frame);
 			this.add(this.sweetSpot);
 
+			if ( this.index == 0 ) {
+				this.player1hand = new FlxSprite(this.gSpot.x, this.gSpot.y-3);
+				this.player1hand.makeGraphic(player1handWidth, this.gSpot.height + 6, 0xfff5c32f);
+				this.add(this.player1hand);
+			}
+
 			this.add(this.gSpot);
 			//this.add(this.playerSpot);
-
-			FlxG.log('Finished running create for index ' + this.index);
 		}
 
 		override public function update():void {
-			//FlxG.log('running update');
 			super.update();
 
-			//FlxG.log('running moveSpot for index ' + this.index);
-			//moveSpot()
 			moveSweetSpot();
 			moveGSpot();
 
+			if ( index == 0 ) {
+				moveHand();
+			}
+
 			checkForGSpotHit();
-			//FlxG.log('finished moveSpot for index ' + this.index);
 		}
 
 		/*private function moveSpot():void
@@ -135,6 +144,14 @@ package
 				}
 			}*/
 
+		private function moveHand():void {
+			if ( FlxG.keys.Q && this.player1hand.x - PlayBar.player1handSpeed > this.x) {
+				this.player1hand.x -= PlayBar.player1handSpeed;
+			} else if ( FlxG.keys.W && this.player1hand.x + this.player1hand.width + PlayBar.player1handSpeed < this.x + this.width ) {
+				this.player1hand.x += PlayBar.player1handSpeed;
+			}
+		}
+
 		private function moveSweetSpot():void {
 			if ( this.parentBar != null && this.pointer != null) {
 				// if this sweet spot is to the left of the parent spot
@@ -172,6 +189,7 @@ package
 				} else if ( this.gSpot.x + PlayBar.gSpotVelocity*this.gSpotDirection < this.sweetSpot.x ) {
 					this.gSpot.x = this.sweetSpot.x;
 				}
+
 				this.gSpotDirection *= -1;
 				this.gSpot.x += PlayBar.gSpotVelocity*gSpotDirection;
 			}
@@ -181,6 +199,13 @@ package
 			if ( this.playerSpot.x > this.gSpot.x && 
 						this.playerSpot.x + this.playerSpot.width < this.gSpot.x + this.gSpot.width ) {
 				_gSpotCallback();
+			}
+
+			if ( this.index == 0 ) {
+				if ( this.player1hand.x + this.player1hand.width/2 > this.gSpot.x &&
+							this.player1hand.x + this.player1hand.width/2 < this.gSpot.x + this.gSpot.width ) {
+					_gSpotCallback();
+				}
 			}
 		}
 
