@@ -27,8 +27,8 @@ package
 		public static const BAR_OFFSET_Y:Number = 280;
 		public static const BAR_WIDTH:Number = 160;
 		public static const BAR_HEIGHT:Number = 32;
-		//public static const EXCITEINCREMENET:Number = 0.2;
-		public static const EXCITEINCREMENET:Number = 100;
+		public static const EXCITEINCREMENET:Number = 0.2;
+		//public static const EXCITEINCREMENET:Number = 100;
 		
 		private var bottomui: FlxSprite;
 		private var background:FlxSprite;
@@ -134,7 +134,20 @@ package
 			//try {
 			
 			//add(players[players.push(new FlxSprite(192*players.length,32))-1]);
-			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
+			var randNum:Number = Math.random()*2;
+			var randRoll:uint = Math.floor(randNum);
+			FlxG.log('randRoll in addPlayer: ' + randRoll);
+			var playerType:String;
+			switch (randRoll) {
+				case 0:
+					playerType = 'male';
+					break;
+				case 1:
+					playerType = 'female';
+					break
+			}
+
+			playerGroup.add(players[players.push(new Player(0,192*players.length,32,playerType))-1]);
 			//players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
 			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
 
