@@ -80,16 +80,19 @@ package
 		}
 
 		public function gSpotListener():void {
-			excitementScore += EXCITEINCREMENET;
+			excitementScore += EXCITEINCREMENET/players.length;
 			var excitementPercentage:Number = excitementScore/excitementThreshold;
 			//FlxG.log("excitementScore: " + excitementScore + "\nexcitementPercentage: " + excitementPercentage);
 			
 			excitementLevel.makeGraphic(excitementPercentage * excitementLevelFrame.width,16,0xff00ff00);
 
-			if ( excitementScore > excitementThreshold ) {
-				excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);
-				excitementThreshold += 100;
-				addPlayer();
+			if ( players.length < 5 ) {
+				if ( excitementScore > excitementThreshold ) {
+					excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);
+					excitementThreshold += 100;
+
+					addPlayer();
+				}
 			}
 		}
 
