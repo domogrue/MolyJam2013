@@ -29,7 +29,7 @@ package
 		
 		private const WIGGLE_SPEED:Number = 0.7;
 		private const WIGGLE_MAX:Number = 5;
-
+		private const SLIDE_SPEED:Number = 20;
 		
 		//Variables
 		private var _x:Number;
@@ -37,13 +37,16 @@ package
 		private var _wiggle_direction:Number = 1;
 		private var _wiggle_count:Number = 0;
 		private var _sounds:Array;
-
+		private var _sliding:Boolean = true;
+		
+		public var destinationX:Number;
 		public var type:String;
 		public var wholeSprite:FlxSprite;
 		
 		public function Player(index:int,xIn:Number,yIn:Number,type:String)
 		{
-			_x = xIn;
+			_x = FlxG.width;
+			destinationX = xIn;
 			_y = yIn;
 			_sounds = new Array();
 			
@@ -121,6 +124,18 @@ package
 		
 		public function get y():Number {
 			return _y;
+		}
+
+		override public function update():void {
+			if ( _sliding ) {
+				// if we haven't passed our sliding destination
+				if ( this.x - SLIDE_SPEED > destinationX ) {
+					this.x -= SLIDE_SPEED;
+				} else {
+					this.x = destinationX;
+					_sliding = false;
+				}
+			}
 		}
 		
 		/*

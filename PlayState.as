@@ -83,7 +83,7 @@ package
 			} while ( pleasureHearts[pleasureHearts.length-1].x + pleasureHearts[pleasureHearts.length-1].width*2 <= excitementLevelFrame.width )
 
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
-			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
+			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
 			//FlxG.log('playBars.length: ' + playBars.length);
 		}
 
@@ -148,7 +148,7 @@ package
 
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,playerType))-1]);
 			//players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
-			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
+			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
 
 			var keyArr:Array = new Array();
 			switch (players.length) {
