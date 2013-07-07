@@ -113,7 +113,7 @@ package
 			} while ( pleasureHearts[pleasureHearts.length-1].x + pleasureHearts[pleasureHearts.length-1].width*2 <= excitementLevelFrame.width )
 
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
-			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
+			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y + BAR_HEIGHT + 16, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
 			//FlxG.log('playBars.length: ' + playBars.length);
 
 			/*add(players[players.push(new FlxSprite(192*players.length,32))-1]);
@@ -153,15 +153,25 @@ package
 			
 			for (var i:uint = 0; i < 10; i++) {
 				var keyX:Number;
-				var keyY:Number = FlxG.height-96;
+				//var keyY:Number = FlxG.height-96;
+				var keyY:Number = FlxG.height - 48;
 				var image_off:Class = keys_image_off[i];
 				var image_on:Class = keys_image_on[i];
 				
-				if (i % 2 == 0) {
-					keyX = 192 * i / 2 + 48;
+				if ( i < 2 ) {
+					keyY = FlxG.height - 168;
+					keyX = 192 * i / 2 + 38;
+				} else if ( i < 4 ) {
+					
+					keyX = 192 * (i-2) / 2 + 38;
 				} else {
-					keyX = 192 * (i + 1) / 2 - 64;
+					if (i % 2 == 0 && i > 2) {
+						keyX = 192 * (i-2) / 2 + 38;
+					} else {
+						keyX = 192 * (i-1) / 2 - 54;
+					}
 				}
+
 				keys_off.push(new FlxSprite(keyX, keyY, image_off));
 				keys_on.push(new FlxSprite(keyX, keyY, image_on));
 				keys_on[i].visible = false;
@@ -235,7 +245,7 @@ package
 
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,playerType))-1]);
 			//players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
-			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
+			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y + BAR_HEIGHT + 16, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
 
 			var keyArr:Array = new Array();
 			switch (players.length) {
