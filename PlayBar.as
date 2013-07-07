@@ -151,7 +151,8 @@ package
 		private function moveHand():void {
 			if ( FlxG.keys.Q && this.player1hand.x - PlayBar.player1handSpeed > this.x) {
 				this.player1hand.x -= PlayBar.player1handSpeed;
-			} else if ( FlxG.keys.W && this.player1hand.x + this.player1hand.width + PlayBar.player1handSpeed < this.x + this.width ) {
+			//} else if ( FlxG.keys.W && this.player1hand.x + this.player1hand.width + PlayBar.player1handSpeed < this.x + this.width ) {
+			} else if ( FlxG.keys.E && this.player1hand.x + this.player1hand.width + PlayBar.player1handSpeed < this.x + this.width ) {
 				this.player1hand.x += PlayBar.player1handSpeed;
 			}
 		}
@@ -205,6 +206,13 @@ package
 				_gSpotCallback();
 				if ( this._player != null ) {
 					this._player.wiggle();
+					if ( Math.floor(Math.random()*240) < 1 ) {
+						// avg snd is 2 secs
+						// 60fps = 120 frames
+						// doubling that
+						// hopefully RNG magic?
+						this._player.playSound();
+					}
 				}
 			}
 
@@ -214,6 +222,13 @@ package
 					_gSpotCallback();
 					if ( this._player != null ) {
 						this._player.wiggle();
+						if ( Math.floor(Math.random()*240) < 1 ) {
+							// avg snd is 2 secs
+							// 60fps = 120 frames
+							// doubling that
+							// hopefully RNG magic?
+							this._player.playSound();
+						}
 					}
 				}
 			}

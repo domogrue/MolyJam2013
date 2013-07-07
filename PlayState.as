@@ -127,19 +127,27 @@ package
 			var keyArr:Array = new Array();
 			switch (players.length) {
 				case 2:
-					keyArr.push('E');
-					keyArr.push('R');
+					//keyArr.push('E');
+					//keyArr.push('R');
+					keyArr.push('W');
+					keyArr.push('T');
 					break
 				case 3:
-					keyArr.push('T');
-					keyArr.push('Y');
+					//keyArr.push('T');
+					//keyArr.push('Y');
+					keyArr.push('R');
+					keyArr.push('U');
 					break
 				case 4:
-					keyArr.push('U');
-					keyArr.push('I');
+					//keyArr.push('U');
+					//keyArr.push('I');
+					keyArr.push('Y');
+					keyArr.push('O');
 					break
 				case 5:
-					keyArr.push('O');
+					//keyArr.push('O');
+					//keyArr.push('P');
+					keyArr.push('I');
 					keyArr.push('P');
 					break
 			}

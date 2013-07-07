@@ -18,6 +18,20 @@ package
 		[Embed(source = "assets/characters/BurtReynolds_NormFace.png")]private var female_normFace_img:Class;
 		[Embed(source = "assets/characters/BurtReynolds_OFace.png")]private var female_oFace_img:Class;
 		[Embed(source = "assets/characters/BurtReynolds_OuchFace.png")]private var female_ouchFace_img:Class;
+
+		[Embed(source = "assets/audio/male/male1_norm1.mp3")]private var male1_norm1_snd:Class;
+		[Embed(source = "assets/audio/male/male1_norm2.mp3")]private var male1_norm2_snd:Class;
+		[Embed(source = "assets/audio/male/male1_norm3.mp3")]private var male1_norm3_snd:Class;
+		[Embed(source = "assets/audio/male/male1_oface1.mp3")]private var male1_oface1_snd:Class;
+		[Embed(source = "assets/audio/male/male1_oface2.mp3")]private var male1_oface2_snd:Class;
+		[Embed(source = "assets/audio/male/male1_oface3.mp3")]private var male1_oface3_snd:Class;
+
+		[Embed(source = "assets/audio/male/male2_norm1.mp3")]private var male2_norm1_snd:Class;
+		[Embed(source = "assets/audio/male/male2_norm2.mp3")]private var male2_norm2_snd:Class;
+		[Embed(source = "assets/audio/male/male2_norm3.mp3")]private var male2_norm3_snd:Class;
+		[Embed(source = "assets/audio/male/male2_oface1.mp3")]private var male2_oface1_snd:Class;
+		[Embed(source = "assets/audio/male/male2_oface2.mp3")]private var male2_oface2_snd:Class;
+		[Embed(source = "assets/audio/male/male2_oface3.mp3")]private var male2_oface3_snd:Class;
 		
 		//constants
 		private const MALE_ARM_OFFSET_X:Number = 57;
@@ -42,6 +56,8 @@ package
 		private var _y:Number;
 		private var _wiggle_direction:Number = 1;
 		private var _wiggle_count:Number = 0;
+		private var _sounds:Array;
+
 		public var bodySprite:FlxSprite;
 		public var armSprite:FlxSprite;
 		public var handSprite:FlxSprite;
@@ -52,6 +68,7 @@ package
 		{
 			_x = xIn;
 			_y = yIn;
+			_sounds = new Array();
 			
 			switch (index) {
 			case 0:
@@ -65,6 +82,24 @@ package
 				armSprite = new FlxSprite(x, y, male_arm_img);
 				handSprite = new FlxSprite(x, y, male_hand_img);
 				faceSprite = new FlxSprite(x, y, male_normFace_img);
+
+				var randRoll:Number = Math.floor(Math.random()*2);
+				if ( randRoll == 0 ) {
+					_sounds.push(male1_norm1_snd);
+					_sounds.push(male1_norm2_snd);
+					_sounds.push(male1_norm3_snd);
+					_sounds.push(male1_oface1_snd);
+					_sounds.push(male1_oface2_snd);
+					_sounds.push(male1_oface3_snd);
+				} else {
+					_sounds.push(male2_norm1_snd);
+					_sounds.push(male2_norm2_snd);
+					_sounds.push(male2_norm3_snd);
+					_sounds.push(male2_oface1_snd);
+					_sounds.push(male2_oface2_snd);
+					_sounds.push(male2_oface3_snd);
+				}
+				
 			} 
 			else if (type == "female") {
 				bodySprite = new FlxSprite(x + MALE_BODY_OFFSET_X, y + MALE_BODY_OFFSET_Y, female_body_img);
@@ -85,6 +120,10 @@ package
 			add(armSprite);
 			add(handSprite);
 			add(faceSprite);
+		}
+
+		public function playSound():void {
+			FlxG.play(_sounds[Math.floor(Math.random()*_sounds.length)]);
 		}
 
 		public function wiggle():void {
