@@ -99,20 +99,28 @@ package
 			add(players[players.push(new FlxSprite(192*players.length,32))-1]);
 			players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
 			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, pointers[players.length-1], playBars[playBars.length-1]))-1]);
+
+			var keyArr:Array = new Array();
 			switch (players.length) {
-				case 2: 
-					add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, 'E', 'R', playBars[playBars.length - 2])) - 1]);
-					break;
+				case 2:
+					keyArr.push('E');
+					keyArr.push('R');
+					break
 				case 3:
-					add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, 'T', 'Y', playBars[playBars.length - 2])) - 1]);
-					break;
+					keyArr.push('T');
+					keyArr.push('Y');
+					break
 				case 4:
-					add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, 'U', 'I', playBars[playBars.length - 2])) - 1]);
-					break;
+					keyArr.push('U');
+					keyArr.push('I');
+					break
 				case 5:
-					add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, 'O', 'P', playBars[playBars.length - 2])) - 1]);
-					break;
+					keyArr.push('O');
+					keyArr.push('P');
+					break
 			}
+			add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, keyArr[0], keyArr[1], playBars[playBars.length - 2])) - 1]);
+			
 			playBars[playBars.length-1].pointer = pointers[pointers.length-1];
 		}
 		
