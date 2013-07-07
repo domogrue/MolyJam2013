@@ -28,8 +28,12 @@ package
 		public var tipSprite:FlxSprite;
 		public var lengthSprite:FlxSprite;
 		public var playBar:PlayBar;
+		public var hitBox:FlxSprite;
+		public var player:Player;
+
+		private var inSweetSpot:Boolean = false;
 		
-		public function Pointer(xIn:Number,yIn:Number,widthIn:Number,lkIn:String,rkIn:String,playBarIn:PlayBar)
+		public function Pointer(xIn:Number,yIn:Number,widthIn:Number,lkIn:String,rkIn:String,playBarIn:PlayBar,playerIn:Player)
 		{
 			leftKey = lkIn;
 			rightKey = rkIn;
@@ -38,18 +42,36 @@ package
 			lengthSprite = new FlxSprite(xIn + TIP_WIDTH, yIn, length_image);
 			lengthSprite.origin.x = lengthSprite.origin.y = 0;
 			lengthSprite.scale.x = widthIn - TIP_WIDTH;
-			playBar = playBarIn
+			playBar = playBarIn;
+			player = playerIn;
+
+			hitBox = new FlxSprite(tipSprite.x,tipSprite.y - 16);
+			hitBox.makeGraphic(16,10,0x00000000);
+			this.add(this.hitBox);
 			
 			this.add(this.tipSprite);
 			this.add(this.lengthSprite);
 			
-			trace("tipSprite X is " + tipSprite.x +" and playbar X is " + playBar.x);
+			FlxG.log('creating Pointer complete');
 		}
 		
 		override public function update():void
 		{
+			//try {
 			super.update();
+
+			inSweetSpot = false;
+			FlxG.overlap(hitBox, playBar.sweetSpot, sweetSpotOverlap);
+
 			movePointer();
+			FlxG.overlap(hitBox, playBar.gSpot, checkForGSpotHit);
+			//} catch(e:Error) { FlxG.log('Pointer update error: ' + e); }
+
+			if ( !inSweetSpot ) { playBar.gSpotCallback(false); }
+		}
+
+		private function sweetSpotOverlap(Object1:FlxObject,Object2:FlxObject):void {
+			inSweetSpot = true;
 		}
 		
 		public function movePointer():void
@@ -64,6 +86,13 @@ package
 			}
 			//trace("MovePointerCalled");
 			lengthSprite.x = tipSprite.x+TIP_WIDTH;
+			hitBox.x = tipSprite.x;
+		}
+
+		private function checkForGSpotHit(Object1:FlxObject,Object2:FlxObject):void {
+			playBar.gSpotCallback(true);
+			playBar.player.playSound();
+			player.wiggle();
 		}
 		
 		//gets and sets

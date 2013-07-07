@@ -27,7 +27,7 @@ package
 		public static const BAR_OFFSET_Y:Number = 280;
 		public static const BAR_WIDTH:Number = 160;
 		public static const BAR_HEIGHT:Number = 32;
-		public static const EXCITEINCREMENET:Number = 0.5;
+		public static const EXCITEINCREMENET:Number = 0.2;
 		
 		private var bottomui: FlxSprite;
 		private var background:FlxSprite;
@@ -93,8 +93,22 @@ package
 			//FlxG.log('playBars.length: ' + playBars.length);*/
 		}
 
-		public function gSpotListener():void {
-			excitementScore += EXCITEINCREMENET/players.length;
+		public function gSpotListener(direction:Boolean):void {
+			if ( direction ) {
+				excitementScore += EXCITEINCREMENET/players.length;
+				
+				if ( players.length < 5 ) {
+					if ( excitementScore > excitementThreshold ) {
+						excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);
+						excitementThreshold += 100;
+
+						addPlayer();
+					}
+				}
+			} else if ( !direction ) {
+				excitementScore -= EXCITEINCREMENET/players.length;
+			}
+
 			var excitementPercentage:Number = excitementScore/excitementThreshold;
 			//FlxG.log("excitementScore: " + excitementScore + "\nexcitementPercentage: " + excitementPercentage);
 			
@@ -103,25 +117,14 @@ package
 			} catch (error:ArgumentError) {
 				trace('error in setting excitementLevel width. ignoring.');
 			}
-				
-			if ( players.length < 5 ) {
-				if ( excitementScore > excitementThreshold ) {
-					excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);
-					excitementThreshold += 100;
-
-					addPlayer();
-				}
-			}
 		}
 
 		private function addPlayer():void {
-			FlxG.log('players.length: ' + players.length);
-
+			//try {
 			
 			//add(players[players.push(new FlxSprite(192*players.length,32))-1]);
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
 			//players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
-			try {
 			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
 
 			var keyArr:Array = new Array();
@@ -151,12 +154,10 @@ package
 					keyArr.push('P');
 					break
 			}
-			uiGroup.add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, keyArr[0], keyArr[1], playBars[playBars.length - 2])) - 1]);
+			uiGroup.add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, keyArr[0], keyArr[1], playBars[playBars.length - 2],players[players.length-1])) - 1]);
 			
 			playBars[playBars.length-1].pointer = pointers[pointers.length-1];
-			} catch (error:Error) {
-				FlxG.log('error: ' + error);
-			}
+			//} catch (error:Error) { FlxG.log('error: ' + error); }
 		}
 		
 		override public function update():void

@@ -17,8 +17,6 @@ package
 
 		private var frame:FlxSprite;
 		private var playerSpot:FlxSprite;
-		private var sweetSpot:FlxSprite;
-		private var gSpot:FlxSprite;
 
 		private var _x:Number;
 		private var _y:Number;
@@ -27,13 +25,15 @@ package
 
 		private var isForward:Boolean = true;
 		private var gSpotDirection:int = 1;
-		private var _player:Player;
 
 		public var index:uint;
 		public var parentBar:PlayBar;
+		public var gSpot:FlxSprite;
 		public var pointer:Pointer;
+		public var player:Player;
+		public var sweetSpot:FlxSprite;
 
-		private var _gSpotCallback:Function;
+		public var gSpotCallback:Function;
 
 		// unused for players other than 0
 		private var player1hand:FlxSprite;
@@ -46,9 +46,9 @@ package
 			this._y = y;
 			this._width = width;
 			this._height = height;
-			this._player = player;
+			this.player = player;
 
-			this._gSpotCallback = gSpotCallback;
+			this.gSpotCallback = gSpotCallback;
 
 			this.index = index;
 
@@ -76,18 +76,20 @@ package
 
 			this.add(this.frame);
 			this.add(this.sweetSpot);
+			this.add(this.gSpot);
 
 			if ( this.index == 0 ) {
 				this.player1hand = new FlxSprite(this.gSpot.x, this.gSpot.y-3, player1handImg);
 				//this.player1hand.makeGraphic(player1handWidth, this.gSpot.height + 6, 0xfff5c32f);
 				this.add(this.player1hand);
 			}
-
-			this.add(this.gSpot);
+			
+			FlxG.log('creating PlayBar complete');
 			//this.add(this.playerSpot);
 		}
 
 		override public function update():void {
+			//try {
 			super.update();
 
 			moveSweetSpot();
@@ -98,6 +100,7 @@ package
 			}
 
 			checkForGSpotHit();
+			//} catch(e:Error) { FlxG.log('PlayBar update error: ' + e);}
 		}
 
 		/*private function moveSpot():void
@@ -201,33 +204,33 @@ package
 		}
 
 		private function checkForGSpotHit():void {
-			if ( this.playerSpot.x > this.gSpot.x && 
+			/*if ( this.playerSpot.x > this.gSpot.x && 
 						this.playerSpot.x + this.playerSpot.width < this.gSpot.x + this.gSpot.width ) {
-				_gSpotCallback();
-				if ( this._player != null ) {
-					this._player.wiggle();
+				gSpotCallback();
+				if ( this.player != null ) {
+					this.player.wiggle();
 					if ( Math.floor(Math.random()*240) < 1 ) {
 						// avg snd is 2 secs
 						// 60fps = 120 frames
 						// doubling that
 						// hopefully RNG magic?
-						this._player.playSound();
+						this.player.playSound();
 					}
 				}
-			}
+			}*/
 
 			if ( this.index == 0 ) {
 				if ( this.player1hand.x + this.player1hand.width/2 > this.gSpot.x &&
 							this.player1hand.x + this.player1hand.width/2 < this.gSpot.x + this.gSpot.width ) {
-					_gSpotCallback();
-					if ( this._player != null ) {
-						this._player.wiggle();
+					gSpotCallback(true);
+					if ( this.player != null ) {
+						this.player.wiggle();
 						if ( Math.floor(Math.random()*240) < 1 ) {
 							// avg snd is 2 secs
 							// 60fps = 120 frames
 							// doubling that
 							// hopefully RNG magic?
-							this._player.playSound();
+							this.player.playSound();
 						}
 					}
 				}
