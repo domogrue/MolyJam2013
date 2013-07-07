@@ -4,7 +4,7 @@ package
 
 	public class PlayBar extends FlxGroup
 	{
-		public static const spotRadius:Number = 32;
+		public static const spotRadius:Number = 5;
 		public static const sweetSpotRange:Number = 30;
 		public static const spotVelocity:Number = 1;
 		public static const sweetVelocity:Number = 0.7;
@@ -28,7 +28,9 @@ package
 		public var index:uint;
 		public var parentBar:PlayBar;
 
-		public function PlayBar(x:Number, y:Number, width:Number, height:Number,  index:uint, parentBar:PlayBar = null)
+		private var _gSpotCallback:Function;
+
+		public function PlayBar(x:Number, y:Number, width:Number, height:Number,  index:uint, gSpotCallback:Function, parentBar:PlayBar = null)
 		{
 			super();
 
@@ -36,6 +38,8 @@ package
 			this._y = y;
 			this._width = width;
 			this._height = height;
+
+			this._gSpotCallback = gSpotCallback;
 
 			this.index = index;
 
@@ -47,7 +51,7 @@ package
 			this.frame.makeGraphic(width, height, 0xff0000ff);
 
 			this.playerSpot = new FlxSprite(x + width/2 - PlayBar.spotRadius, y);
-			this.playerSpot.makeGraphic(PlayBar.spotRadius, PlayBar.spotRadius, 0xffff0000);
+			this.playerSpot.makeGraphic(PlayBar.spotRadius*2, this.height, 0xffff0000);
 
 			if ( parentBar == null ) {
 				this.sweetSpot = new FlxSprite(x + width/10, y);
@@ -76,6 +80,8 @@ package
 			moveSpot()
 			moveSweetSpot();
 			moveGSpot();
+
+			checkForGSpotHit();
 			//FlxG.log('finished moveSpot for index ' + this.index);
 		}
 
@@ -166,6 +172,13 @@ package
 				}
 				this.gSpotDirection *= -1;
 				this.gSpot.x += PlayBar.gSpotVelocity*gSpotDirection;
+			}
+		}
+
+		private function checkForGSpotHit():void {
+			if ( this.playerSpot.x > this.gSpot.x && 
+						this.playerSpot.x + this.playerSpot.width < this.gSpot.x + this.gSpot.width ) {
+				_gSpotCallback();
 			}
 		}
 
