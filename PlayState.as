@@ -27,7 +27,8 @@ package
 		public static const BAR_OFFSET_Y:Number = 280;
 		public static const BAR_WIDTH:Number = 160;
 		public static const BAR_HEIGHT:Number = 32;
-		public static const EXCITEINCREMENET:Number = 0.2;
+		//public static const EXCITEINCREMENET:Number = 0.2;
+		public static const EXCITEINCREMENET:Number = 100;
 		
 		private var bottomui: FlxSprite;
 		private var background:FlxSprite;
@@ -117,6 +118,16 @@ package
 			} catch (error:ArgumentError) {
 				trace('error in setting excitementLevel width. ignoring.');
 			}
+
+			// you win!!
+			if ( excitementThreshold == 500 && excitementScore > excitementThreshold) {
+				// stuff
+				FlxG.fade(0xffffffff, 2, changeToWinState);
+			}
+		}
+
+		private function changeToWinState():void {
+
 		}
 
 		private function addPlayer():void {
