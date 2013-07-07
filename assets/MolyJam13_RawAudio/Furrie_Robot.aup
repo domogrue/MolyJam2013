@@ -1,0 +1,73 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Furrie_Robot_data" version="1.3.0" audacityversion="2.0.3" sel0="42.7034933032" sel1="44.9999679750" vpos="0" h="11.7831021854" zoom="36.5778038089" rate="44100.0">
+	<tags/>
+	<wavetrack name="Furrie_Robot" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="2119325">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000189.au" len="262144" min="-0.523539" max="0.642588" rms="0.046766"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e00003f0.au" len="262144" min="-0.430697" max="0.548961" rms="0.068247"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e0000d22.au" len="262144" min="-0.075833" max="0.112506" rms="0.016176"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="e00002f6.au" len="182910" min="-0.002547" max="0.002987" rms="0.000081"/>
+				</waveblock>
+				<waveblock start="969342">
+					<simpleblockfile filename="e0000ef6.au" len="229996" min="-0.154228" max="0.199427" rms="0.018094"/>
+				</waveblock>
+				<waveblock start="1199338">
+					<simpleblockfile filename="e0000af8.au" len="229997" min="-0.541594" max="0.681897" rms="0.059086"/>
+				</waveblock>
+				<waveblock start="1429335">
+					<simpleblockfile filename="e0000105.au" len="229996" min="-0.258778" max="0.392661" rms="0.029049"/>
+				</waveblock>
+				<waveblock start="1659331">
+					<simpleblockfile filename="e000063c.au" len="229997" min="-0.265056" max="0.351816" rms="0.029337"/>
+				</waveblock>
+				<waveblock start="1889328">
+					<simpleblockfile filename="e0000974.au" len="229997" min="-0.358789" max="0.44141" rms="0.038916"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Furrie_Robot" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="2119325">
+				<waveblock start="0">
+					<simpleblockfile filename="e000065a.au" len="262144" min="-0.57562" max="0.707946" rms="0.052432"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e00009d1.au" len="262144" min="-0.467921" max="0.607879" rms="0.073857"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e0000368.au" len="262144" min="-0.080811" max="0.110091" rms="0.015735"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="e0000753.au" len="182910" min="-0.003012" max="0.003592" rms="0.000126"/>
+				</waveblock>
+				<waveblock start="969342">
+					<simpleblockfile filename="e00007a9.au" len="229996" min="-0.183041" max="0.220066" rms="0.020728"/>
+				</waveblock>
+				<waveblock start="1199338">
+					<simpleblockfile filename="e00004ef.au" len="229997" min="-0.622079" max="0.707946" rms="0.067152"/>
+				</waveblock>
+				<waveblock start="1429335">
+					<simpleblockfile filename="e0000b08.au" len="229996" min="-0.325178" max="0.473656" rms="0.03687"/>
+				</waveblock>
+				<waveblock start="1659331">
+					<simpleblockfile filename="e000046e.au" len="229997" min="-0.372634" max="0.473287" rms="0.040283"/>
+				</waveblock>
+				<waveblock start="1889328">
+					<simpleblockfile filename="e0000153.au" len="229997" min="-0.411942" max="0.511779" rms="0.046661"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

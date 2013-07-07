@@ -1,0 +1,37 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Female1_data" version="1.3.0" audacityversion="2.0.3" sel0="0.6125742385" sel1="0.6125742385" vpos="0" h="0.0000000000" zoom="99.5797670974" rate="44100.0">
+	<tags/>
+	<wavetrack name="Female1" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="777664">
+				<waveblock start="0">
+					<simpleblockfile filename="e00002a3.au" len="262144" min="-0.449861" max="0.592207" rms="0.027312"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e0000a61.au" len="262144" min="-0.399269" max="0.315428" rms="0.019702"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e00009bd.au" len="253376" min="-0.39808" max="0.54869" rms="0.019671"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Female1" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="777664">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000db0.au" len="262144" min="-0.560405" max="0.707946" rms="0.031315"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e0000255.au" len="262144" min="-0.435516" max="0.366978" rms="0.023073"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e000072f.au" len="253376" min="-0.415565" max="0.55724" rms="0.020215"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
