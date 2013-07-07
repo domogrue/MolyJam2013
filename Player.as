@@ -8,6 +8,7 @@ package
 		[Embed(source = "assets/characters/BurtReynolds_Whole.png")]private var male_img:Class;
 		[Embed(source = "assets/characters/BabeWhole.png")]private var female_img:Class;
 		[Embed(source = "assets/characters/TimCurryWhole.png")]private var curry_img:Class;
+		[Embed(source = "assets/characters/RoboWhole.png")]private var robot_img:Class;
 
 		// AUDIO
 		[Embed(source = "assets/audio/male/male1_norm1.mp3")]private var male1_norm1_snd:Class;
@@ -33,6 +34,12 @@ package
 		[Embed(source = "assets/audio/curry/curry_norm3.mp3")]private var curry_norm3_snd:Class;
 		[Embed(source = "assets/audio/curry/curry_oface1.mp3")]private var curry_oface1_snd:Class;
 		[Embed(source = "assets/audio/curry/curry_oface2.mp3")]private var curry_oface2_snd:Class;
+
+		[Embed(source = "assets/audio/robot/robot_norm1.mp3")]private var robot_norm1_snd:Class;
+		[Embed(source = "assets/audio/robot/robot_norm2.mp3")]private var robot_norm2_snd:Class;
+		[Embed(source = "assets/audio/robot/robot_oface1.mp3")]private var robot_oface1_snd:Class;
+		[Embed(source = "assets/audio/robot/robot_oface2.mp3")]private var robot_oface2_snd:Class;
+		[Embed(source = "assets/audio/robot/robot_oface3.mp3")]private var robot_oface3_snd:Class;
 		
 		private const WIGGLE_SPEED:Number = 0.7;
 		private const WIGGLE_MAX:Number = 5;
@@ -86,15 +93,13 @@ package
 					_sounds.push(male2_oface3_snd);
 				}
 				
-			} 
-			else if (type == "female") {
+			} else if (type == "female") {
 				wholeSprite = new FlxSprite(x, y, female_img);
 
 				_sounds.push(female_norm1_snd);
 				_sounds.push(female_norm2_snd);
 				_sounds.push(female_norm3_snd);
-			} 
-			else if (type == "curry") {
+			} else if (type == "curry") {
 				wholeSprite = new FlxSprite(x, y, curry_img);
 
 				_sounds.push(curry_norm1_snd);
@@ -102,6 +107,14 @@ package
 				_sounds.push(curry_norm3_snd);
 				_sounds.push(curry_oface1_snd);
 				_sounds.push(curry_oface2_snd);
+			} else if (type == "robot") {
+				wholeSprite = new FlxSprite(x, y, robot_img);
+
+				_sounds.push(robot_norm1_snd);
+				_sounds.push(robot_norm2_snd);
+				_sounds.push(robot_oface1_snd);
+				_sounds.push(robot_oface2_snd);
+				_sounds.push(robot_oface3_snd);
 			} else {
 				// default to male
 				wholeSprite = new FlxSprite(x, y, male_img);

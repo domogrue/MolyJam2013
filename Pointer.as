@@ -15,6 +15,10 @@ package
 		[Embed(source = "assets/pointer2_length.png")]private var length_image2:Class;
 		[Embed(source = "assets/pointer2_tip.png")]private var tip_image2:Class;
 		[Embed(source = "assets/pointer2_end.png")] private var end_image2:Class;
+
+		[Embed(source = "assets/pointer3_length.png")]private var length_image3:Class;
+		[Embed(source = "assets/pointer3_tip.png")]private var tip_image3:Class;
+		[Embed(source = "assets/pointer3_end.png")] private var end_image3:Class;
 		
 		//constants
 		public static const TIP_HEIGHT:Number = 32;
@@ -54,6 +58,11 @@ package
 					tipSprite = new FlxSprite(xIn, yIn, tip_image2);
 					lengthSprite = new FlxSprite(xIn + TIP_WIDTH, yIn, length_image2);
 					endSprite = new FlxSprite(0,yIn,end_image2);
+					break;
+				case 'robot':
+					tipSprite = new FlxSprite(xIn, yIn, tip_image3);
+					lengthSprite = new FlxSprite(xIn + TIP_WIDTH, yIn, length_image3);
+					endSprite = new FlxSprite(0,yIn,end_image3);
 					break;
 			}
 			lengthSprite.origin.x = lengthSprite.origin.y = 0;
