@@ -43,6 +43,7 @@ package
 			FlxG.log('playerIn.type: ' + playerIn.type);
 			//try {
 			switch (playerIn.type) {
+				case 'curry':
 				case 'male':
 					tipSprite = new FlxSprite(xIn, yIn, tip_image);
 					lengthSprite = new FlxSprite(xIn + TIP_WIDTH, yIn, length_image);

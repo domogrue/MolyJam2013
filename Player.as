@@ -7,6 +7,7 @@ package
 		//VISUALS
 		[Embed(source = "assets/characters/BurtReynolds_Whole.png")]private var male_img:Class;
 		[Embed(source = "assets/characters/BabeWhole.png")]private var female_img:Class;
+		[Embed(source = "assets/characters/TimCurryWhole.png")]private var curry_img:Class;
 
 		// AUDIO
 		[Embed(source = "assets/audio/male/male1_norm1.mp3")]private var male1_norm1_snd:Class;
@@ -26,6 +27,12 @@ package
 		[Embed(source = "assets/audio/female/female_norm1.mp3")]private var female_norm1_snd:Class;
 		[Embed(source = "assets/audio/female/female_norm2.mp3")]private var female_norm2_snd:Class;
 		[Embed(source = "assets/audio/female/female_norm3.mp3")]private var female_norm3_snd:Class;
+
+		[Embed(source = "assets/audio/curry/curry_norm1.mp3")]private var curry_norm1_snd:Class;
+		[Embed(source = "assets/audio/curry/curry_norm2.mp3")]private var curry_norm2_snd:Class;
+		[Embed(source = "assets/audio/curry/curry_norm3.mp3")]private var curry_norm3_snd:Class;
+		[Embed(source = "assets/audio/curry/curry_oface1.mp3")]private var curry_oface1_snd:Class;
+		[Embed(source = "assets/audio/curry/curry_oface2.mp3")]private var curry_oface2_snd:Class;
 		
 		private const WIGGLE_SPEED:Number = 0.7;
 		private const WIGGLE_MAX:Number = 5;
@@ -86,6 +93,15 @@ package
 				_sounds.push(female_norm1_snd);
 				_sounds.push(female_norm2_snd);
 				_sounds.push(female_norm3_snd);
+			} 
+			else if (type == "curry") {
+				wholeSprite = new FlxSprite(x, y, curry_img);
+
+				_sounds.push(curry_norm1_snd);
+				_sounds.push(curry_norm2_snd);
+				_sounds.push(curry_norm3_snd);
+				_sounds.push(curry_oface1_snd);
+				_sounds.push(curry_oface2_snd);
 			} else {
 				// default to male
 				wholeSprite = new FlxSprite(x, y, male_img);

@@ -133,7 +133,7 @@ package
 			//try {
 			
 			//add(players[players.push(new FlxSprite(192*players.length,32))-1]);
-			var randNum:Number = Math.random()*2;
+			var randNum:Number = Math.random()*3;
 			var randRoll:uint = Math.floor(randNum);
 			FlxG.log('randRoll in addPlayer: ' + randRoll);
 			var playerType:String;
@@ -143,6 +143,9 @@ package
 					break;
 				case 1:
 					playerType = 'female';
+					break;
+				case 2:
+					playerType = 'curry';
 					break
 			}
 
