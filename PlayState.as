@@ -205,6 +205,7 @@ package
 				}
 			} else if ( !direction ) {
 				excitementScore -= EXCITEINCREMENET/players.length;
+				if ( excitementScore < 0 ) { excitementScore = 0.1; }
 			}
 
 			var excitementPercentage:Number = excitementScore/excitementThreshold;
