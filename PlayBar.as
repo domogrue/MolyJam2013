@@ -95,6 +95,8 @@ package
 			
 			FlxG.log('creating PlayBar complete');
 			//this.add(this.playerSpot);
+
+			this.visible = false;
 		}
 
 		override public function update():void {

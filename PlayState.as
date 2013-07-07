@@ -114,6 +114,7 @@ package
 
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
 			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y + BAR_HEIGHT + 16, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
+			playBars[playBars.length-1].visible = true;
 			//FlxG.log('playBars.length: ' + playBars.length);
 
 			/*add(players[players.push(new FlxSprite(192*players.length,32))-1]);
@@ -248,6 +249,10 @@ package
 
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,playerType))-1]);
 			//players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
+
+			// make previously player's bar visible
+			playBars[playBars.length-1].visible = true;
+
 			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y + BAR_HEIGHT + 16, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
 
 			var keyArr:Array = new Array();
@@ -277,8 +282,10 @@ package
 					keyArr.push('P');
 					break
 			}
+
 			uiGroup.add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, keyArr[0], keyArr[1], playBars[playBars.length - 2],players[players.length-1])) - 1]);
 			
+
 			playBars[playBars.length-1].pointer = pointers[pointers.length-1];
 			//} catch (error:Error) { FlxG.log('error: ' + error); }
 
