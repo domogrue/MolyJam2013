@@ -175,6 +175,9 @@ package
 				keys_off.push(new FlxSprite(keyX, keyY, image_off));
 				keys_on.push(new FlxSprite(keyX, keyY, image_on));
 				keys_on[i].visible = false;
+				if ( i > 1 ) {
+					keys_off[i].visible = false;
+				}
 				
 				add(keys_off[i]);
 				add(keys_on[i]);
@@ -278,6 +281,9 @@ package
 			
 			playBars[playBars.length-1].pointer = pointers[pointers.length-1];
 			//} catch (error:Error) { FlxG.log('error: ' + error); }
+
+			keys_off[(players.length-1)*2].visible = true;
+			keys_off[(players.length-1)*2 + 1].visible = true;
 		}
 		
 		override public function update():void
@@ -301,16 +307,16 @@ package
 		}
 
 		private function updateKeyImages():void {
-			(FlxG.keys.Q) ? keys_on[0].visible = true : keys_on[0].visible = false;
-			(FlxG.keys.E) ? keys_on[1].visible = true : keys_on[1].visible = false;
-			(FlxG.keys.W) ? keys_on[2].visible = true : keys_on[2].visible = false;
-			(FlxG.keys.T) ? keys_on[3].visible = true : keys_on[3].visible = false;
-			(FlxG.keys.R) ? keys_on[4].visible = true : keys_on[4].visible = false;
-			(FlxG.keys.U) ? keys_on[5].visible = true : keys_on[5].visible = false;
-			(FlxG.keys.Y) ? keys_on[6].visible = true : keys_on[6].visible = false;
-			(FlxG.keys.O) ? keys_on[7].visible = true : keys_on[7].visible = false;
-			(FlxG.keys.I) ? keys_on[8].visible = true : keys_on[8].visible = false;
-			(FlxG.keys.P) ? keys_on[9].visible = true : keys_on[9].visible = false;
+			(FlxG.keys.Q && players.length > 0) ? keys_on[0].visible = true : keys_on[0].visible = false;
+			(FlxG.keys.E && players.length > 0) ? keys_on[1].visible = true : keys_on[1].visible = false;
+			(FlxG.keys.W && players.length > 1) ? keys_on[2].visible = true : keys_on[2].visible = false;
+			(FlxG.keys.T && players.length > 1) ? keys_on[3].visible = true : keys_on[3].visible = false;
+			(FlxG.keys.R && players.length > 2) ? keys_on[4].visible = true : keys_on[4].visible = false;
+			(FlxG.keys.U && players.length > 3) ? keys_on[5].visible = true : keys_on[5].visible = false;
+			(FlxG.keys.Y && players.length > 4) ? keys_on[6].visible = true : keys_on[6].visible = false;
+			(FlxG.keys.O && players.length > 4) ? keys_on[7].visible = true : keys_on[7].visible = false;
+			(FlxG.keys.I && players.length > 5) ? keys_on[8].visible = true : keys_on[8].visible = false;
+			(FlxG.keys.P && players.length > 5) ? keys_on[9].visible = true : keys_on[9].visible = false;
 		}
 	}
 }
