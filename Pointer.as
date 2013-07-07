@@ -10,6 +10,11 @@ package
 		//data
 		[Embed(source = "assets/pointer_length.png")]private static var length_image:Class;
 		[Embed(source = "assets/pointer_tip.png")]private static var tip_image:Class;
+		[Embed(source = "assets/pointer_end.png")] private static var end_image:Class;
+		
+		[Embed(source = "assets/pointer2_length.png")]private static var length_image2:Class;
+		[Embed(source = "assets/pointer2_tip.png")]private static var tip_image2:Class;
+		[Embed(source = "assets/pointer2_end.png")] private static var end_image2:Class;
 		
 		//constants
 		public static const TIP_HEIGHT:Number = 32;

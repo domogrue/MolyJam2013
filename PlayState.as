@@ -84,8 +84,13 @@ package
 			var excitementPercentage:Number = excitementScore/excitementThreshold;
 			FlxG.log("excitementScore: " + excitementScore + "\nexcitementPercentage: " + excitementPercentage);
 			
-			excitementLevel.makeGraphic(excitementPercentage * excitementLevelFrame.width,16,0xff00ff00);
-
+			try {
+				//trace("excitementpercentage is "+excitementPercentage);
+				excitementLevel.makeGraphic(excitementPercentage * excitementLevelFrame.width, 16, 0xff00ff00);
+			}catch (error:Error) {
+				trace("excitementpercentage is "+excitementPercentage);
+			}
+			
 			if ( excitementScore > excitementThreshold ) {
 				excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);
 				excitementThreshold += 100;
