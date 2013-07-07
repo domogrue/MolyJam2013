@@ -84,18 +84,6 @@ package
 			var excitementPercentage:Number = excitementScore/excitementThreshold;
 			//FlxG.log("excitementScore: " + excitementScore + "\nexcitementPercentage: " + excitementPercentage);
 			
-<<<<<<< HEAD
-			try {
-				//trace("excitementpercentage is "+excitementPercentage);
-				excitementLevel.makeGraphic(excitementPercentage * excitementLevelFrame.width, 16, 0xff00ff00);
-			}catch (error:Error) {
-				trace("excitementpercentage is "+excitementPercentage);
-			}
-			
-			if ( excitementScore > excitementThreshold ) {
-				excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);
-				excitementThreshold += 100;
-=======
 			excitementLevel.makeGraphic(excitementPercentage * excitementLevelFrame.width,16,0xff00ff00);
 
 			if ( players.length < 5 ) {
@@ -105,7 +93,6 @@ package
 
 					addPlayer();
 				}
->>>>>>> 7f0ea5b505aab40f09424f7e1e9abb466609025b
 			}
 		}
 
