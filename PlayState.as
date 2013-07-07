@@ -13,7 +13,7 @@ package
 		private var excitementLevelFrame:FlxSprite;
 		private var excitementLevel:FlxSprite;
 		private var excitementScore:uint = 0;
-		
+		private var excitementThreshold:uint = 100;
 
 		//data
 		[Embed(source = "assets/bottomuiimage0000.png")] public static var bottomuiimage:Class;
@@ -78,7 +78,15 @@ package
 
 		public function gSpotListener():void {
 			excitementScore += 1;
+			var excitementPercentage:Number = excitementScore/excitementThreshold;
+			FlxG.log("excitementScore: " + excitementScore + "\nexcitementPercentage: " + excitementPercentage);
+			
+			excitementLevel.makeGraphic(excitementPercentage * excitementLevelFrame.width,16,0xff00ff00);
 
+			if ( excitementScore > excitementThreshold ) {
+				excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);
+				excitementThreshold += 100;
+			}
 		}
 	}
 }

@@ -4,13 +4,12 @@ package
 
 	public class PlayBar extends FlxGroup
 	{
-		public static const spotRadius:Number = 5;
 		public static const sweetSpotRange:Number = 30;
 		public static const spotVelocity:Number = 1;
 		public static const sweetVelocity:Number = 0.7;
 		public static const gSpotWidth:Number = 16;
 		public static const gSpotVelocity:Number = 0.8;
-
+		public static const spotRadius:Number = 5;
 
 		private var frame:FlxSprite;
 		private var playerSpot:FlxSprite;
