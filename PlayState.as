@@ -1,5 +1,6 @@
 package
 {
+	import flash.filters.DisplacementMapFilter;
 	import flash.geom.Rectangle;
 	import mx.core.FlexSprite;
 	import org.flixel.*;
@@ -10,6 +11,12 @@ package
 		private var players:Array;
 		private var pointers:Array;
 		private var pleasureHearts:Array;
+		
+		//map and arrays for keys
+		private var keys_image_off:Array;
+		private var keys_image_on:Array;
+		private var keys_off:Array;
+		private var keys_on:Array;
 
 		private var excitementLevelFrame:FlxSprite;
 		private var excitementLevel:FlxSprite;
@@ -17,21 +24,44 @@ package
 		private var excitementThreshold:Number = 100;
 
 		//data
-		[Embed(source = "assets/bottomuiimage0000.png")] private var bottomuiimage:Class;
+		[Embed(source = "assets/bottomui.jpg")] private var bottomuiimage:Class;
 		[Embed(source="assets/pattern_001_1600x1200_texture_wallpaper.jpg")] private var backgroundImg:Class;
 		[Embed(source="assets/pleasureHeart.png")] private var heartImg:Class;
 
 		
+		//data for keypresses
+		[Embed(source = "assets/keys/e_off.png")] private var key_off1:Class;
+		[Embed(source = "assets/keys/e_on.png")] private var key_on1:Class;
+		[Embed(source = "assets/keys/i_off.png")] private var key_off8:Class;
+		[Embed(source = "assets/keys/i_on.png")] private var key_on8:Class;
+		[Embed(source = "assets/keys/o_off.png")] private var key_off7:Class;
+		[Embed(source = "assets/keys/o_on.png")] private var key_on7:Class;
+		[Embed(source = "assets/keys/p_off.png")] private var key_off9:Class;
+		[Embed(source = "assets/keys/p_on.png")] private var key_on9:Class;
+		[Embed(source = "assets/keys/q_off.png")] private var key_off0:Class;
+		[Embed(source = "assets/keys/q_on.png")] private var key_on0:Class;
+		[Embed(source = "assets/keys/r_off.png")] private var key_off4:Class;
+		[Embed(source = "assets/keys/r_on.png")] private var key_on4:Class;
+		[Embed(source = "assets/keys/t_off.png")] private var key_off3:Class;
+		[Embed(source = "assets/keys/t_on.png")] private var key_on3:Class;
+		[Embed(source = "assets/keys/u_off.png")] private var key_off5:Class;
+		[Embed(source = "assets/keys/u_on.png")] private var key_on5:Class;
+		[Embed(source = "assets/keys/w_off.png")] private var key_off2:Class;
+		[Embed(source = "assets/keys/w_on.png")] private var key_on2:Class;
+		[Embed(source = "assets/keys/y_off.png")] private var key_off6:Class;
+		[Embed(source = "assets/keys/y_on.png")] private var key_on6:Class;
+		
+		
 		//CONSTANTS
-		public static const WIDTH:Number = 960;
-		public static const HEIGHT:Number = 480;
-		public static const BAR_OFFSET_X:Number = 16;
-		//public static const BAR_OFFSET_Y:Number = 320;
-		public static const BAR_OFFSET_Y:Number = 280;
-		public static const BAR_WIDTH:Number = 160;
-		public static const BAR_HEIGHT:Number = 32;
-		public static const EXCITEINCREMENET:Number = 0.2;
-		public static const HEART_WIDTH:Number = 32;
+		public const WIDTH:Number = 960;
+		public const HEIGHT:Number = 480;
+		public const BAR_OFFSET_X:Number = 16;
+		//public const BAR_OFFSET_Y:Number = 320;
+		public const BAR_OFFSET_Y:Number = 280;
+		public const BAR_WIDTH:Number = 160;
+		public const BAR_HEIGHT:Number = 32;
+		public const EXCITEINCREMENET:Number = 0.2;
+		public const HEART_WIDTH:Number = 32;
 		//public static const EXCITEINCREMENET:Number = 100;
 		
 		private var bottomui: FlxSprite;
@@ -85,6 +115,60 @@ package
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
 			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].destinationX + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
 			//FlxG.log('playBars.length: ' + playBars.length);
+
+			/*add(players[players.push(new FlxSprite(192*players.length,32))-1]);
+			players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
+			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 2, gSpotListener, pointers[players.length-1], playBars[playBars.length-1]))-1]);
+			add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, 'T', 'Y', playBars[playBars.length - 2])) - 1]);
+			playBars[2].pointer = pointers[1];*/
+			//FlxG.log('playBars.length: ' + playBars.length);*/
+			
+			//adding key images
+			keys_image_off = new Array(10);
+			keys_image_off[0] = key_off0;
+			keys_image_off[1] = key_off1;
+			keys_image_off[2] = key_off2;
+			keys_image_off[3] = key_off3;
+			keys_image_off[4] = key_off4;
+			keys_image_off[5] = key_off5;
+			keys_image_off[6] = key_off6;
+			keys_image_off[7] = key_off7;
+			keys_image_off[8] = key_off8;
+			keys_image_off[9] = key_off9;
+			keys_image_on = new Array(10);
+			keys_image_on[0] = key_on0;
+			keys_image_on[1] = key_on1;
+			keys_image_on[2] = key_on2;
+			keys_image_on[3] = key_on3;
+			keys_image_on[4] = key_on4;
+			keys_image_on[5] = key_on5;
+			keys_image_on[6] = key_on6;
+			keys_image_on[7] = key_on7;
+			keys_image_on[8] = key_on8;
+			keys_image_on[9] = key_on9;
+			
+			//adding keys
+			keys_off = new Array();
+			keys_on = new Array();
+			
+			for (var i:uint = 0; i < 10; i++) {
+				var keyX:Number;
+				var keyY:Number = FlxG.height-96;
+				var image_off:Class = keys_image_off[i];
+				var image_on:Class = keys_image_on[i];
+				
+				if (i % 2 == 0) {
+					keyX = 192 * i / 2 + 48;
+				} else {
+					keyX = 192 * (i + 1) / 2 - 64;
+				}
+				keys_off.push(new FlxSprite(keyX, keyY, image_off));
+				keys_on.push(new FlxSprite(keyX, keyY, image_on));
+				keys_on[i].visible = false;
+				
+				add(keys_off[i]);
+				add(keys_on[i]);
+			}
 		}
 
 		public function gSpotListener(direction:Boolean):void {
@@ -190,6 +274,7 @@ package
 		{
 			super.update();
 
+			updateKeyImages();
 			updateHearts();
 		}
 
@@ -203,6 +288,19 @@ package
 					heart.frame = 0;
 				}
 			}
+		}
+
+		private function updateKeyImages():void {
+			(FlxG.keys.Q) ? keys_on[0].visible = true : keys_on[0].visible = false;
+			(FlxG.keys.E) ? keys_on[1].visible = true : keys_on[1].visible = false;
+			(FlxG.keys.W) ? keys_on[2].visible = true : keys_on[2].visible = false;
+			(FlxG.keys.T) ? keys_on[3].visible = true : keys_on[3].visible = false;
+			(FlxG.keys.R) ? keys_on[4].visible = true : keys_on[4].visible = false;
+			(FlxG.keys.U) ? keys_on[5].visible = true : keys_on[5].visible = false;
+			(FlxG.keys.Y) ? keys_on[6].visible = true : keys_on[6].visible = false;
+			(FlxG.keys.O) ? keys_on[7].visible = true : keys_on[7].visible = false;
+			(FlxG.keys.I) ? keys_on[8].visible = true : keys_on[8].visible = false;
+			(FlxG.keys.P) ? keys_on[9].visible = true : keys_on[9].visible = false;
 		}
 	}
 }

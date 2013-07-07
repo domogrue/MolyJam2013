@@ -33,6 +33,7 @@ package
 		public var player:Player;
 
 		private var inSweetSpot:Boolean = false;
+		private var inGSpot:Boolean = false;
 		
 		public function Pointer(xIn:Number,yIn:Number,widthIn:Number,lkIn:String,rkIn:String,playBarIn:PlayBar,playerIn:Player)
 		{
@@ -80,13 +81,20 @@ package
 			super.update();
 
 			inSweetSpot = false;
+			inGSpot = false;
 			FlxG.overlap(hitBox, playBar.sweetSpot, sweetSpotOverlap);
 
 			movePointer();
 			FlxG.overlap(hitBox, playBar.gSpot, checkForGSpotHit);
 			//} catch(e:Error) { FlxG.log('Pointer update error: ' + e); }
+			
+			if ( !inGSpot ) {
+				playBar.gSpot.play("OFF");
+			}
 
-			if ( !inSweetSpot ) { playBar.gSpotCallback(false); }
+			if ( !inSweetSpot ) {
+				playBar.gSpotCallback(false);
+			}
 		}
 
 		private function sweetSpotOverlap(Object1:FlxObject,Object2:FlxObject):void {
@@ -111,8 +119,12 @@ package
 
 		private function checkForGSpotHit(Object1:FlxObject,Object2:FlxObject):void {
 			playBar.gSpotCallback(true);
-			playBar.player.playSound();
+			playBar.gSpot.play("ON");
+			if ( Math.floor(Math.random()*240) < 1 ) {
+				playBar.player.playSound();
+			}
 			player.wiggle();
+			inGSpot = true;
 		}
 		
 		//gets and sets
