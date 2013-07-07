@@ -23,8 +23,9 @@ package
 
 		public var index:uint;
 		public var parentBar:PlayBar;
+		public var pointer:Pointer;
 
-		public function PlayBar(x:Number, y:Number, width:Number, height:Number,  index:uint, parentBar:PlayBar = null)
+		public function PlayBar(x:Number, y:Number, width:Number, height:Number,  index:uint, pointerIn:Pointer = null, parentBar:PlayBar = null)
 		{
 			super();
 
@@ -37,6 +38,7 @@ package
 
 			FlxG.log('index is ' + this.index);
 
+			this.pointer = pointerIn;
 			this.parentBar = parentBar;
 			
 			this.frame = new FlxSprite(x,y);
@@ -55,7 +57,7 @@ package
 
 			this.add(this.frame);
 			this.add(this.sweetSpot);
-			this.add(this.playerSpot);
+			//this.add(this.playerSpot);
 
 			FlxG.log('Finished running create for index ' + this.index);
 		}
@@ -65,12 +67,12 @@ package
 			super.update();
 
 			//FlxG.log('running moveSpot for index ' + this.index);
-			moveSpot()
+			//moveSpot()
 			moveSweetSpot();
 			//FlxG.log('finished moveSpot for index ' + this.index);
 		}
 
-		private function moveSpot():void
+		/*private function moveSpot():void
 		{
 			// if this is player 1
 			if ( this.parentBar == null ) {
@@ -92,36 +94,36 @@ package
 			// otherwise, if it's not player 1
 			} else {
 				switch (index)
-				{
-				case 1: 
-					if ( FlxG.keys.E && this.playerSpot.x - PlayBar.spotVelocity > this._x) {
-						this.playerSpot.x -= PlayBar.spotVelocity;
-					} else if ( FlxG.keys.R && this.playerSpot.x + PlayBar.spotVelocity < this._x + this._width) {
-						this.playerSpot.x += PlayBar.spotVelocity;
+					{
+					case 1: 
+						if ( FlxG.keys.E && this.playerSpot.x - PlayBar.spotVelocity > this._x) {
+							this.playerSpot.x -= PlayBar.spotVelocity;
+						} else if ( FlxG.keys.R && this.playerSpot.x + PlayBar.spotVelocity < this._x + this._width) {
+							this.playerSpot.x += PlayBar.spotVelocity;
+						}
+						break;
+					case 2:
+						if (FlxG.keys.T && this.playerSpot.x - PlayBar.spotVelocity > this._x) {
+							this.playerSpot.x -= PlayBar.spotVelocity;
+						} else if ( FlxG.keys.Y && this.playerSpot.x + PlayBar.spotVelocity < this._x + this._width) {
+							this.playerSpot.x += PlayBar.spotVelocity;
+						}
+						break;
+					case 3:
+						if (FlxG.keys.U && this.playerSpot.x - PlayBar.spotVelocity > this._x) {
+							this.playerSpot.x -= PlayBar.spotVelocity;
+						} else if ( FlxG.keys.I && this.playerSpot.x + PlayBar.spotVelocity < this._x + this._width) {
+							this.playerSpot.x += PlayBar.spotVelocity;
+						}
+						break;
 					}
-					break;
-				case 2:
-					if (FlxG.keys.T && this.playerSpot.x - PlayBar.spotVelocity > this._x) {
-						this.playerSpot.x -= PlayBar.spotVelocity;
-					} else if ( FlxG.keys.Y && this.playerSpot.x + PlayBar.spotVelocity < this._x + this._width) {
-						this.playerSpot.x += PlayBar.spotVelocity;
-					}
-					break;
-				case 3:
-					if (FlxG.keys.U && this.playerSpot.x - PlayBar.spotVelocity > this._x) {
-						this.playerSpot.x -= PlayBar.spotVelocity;
-					} else if ( FlxG.keys.I && this.playerSpot.x + PlayBar.spotVelocity < this._x + this._width) {
-						this.playerSpot.x += PlayBar.spotVelocity;
-					}
-					break;
 				}
-			}
-		}
+			}*/
 
 		private function moveSweetSpot():void {
-			if ( this.parentBar != null ) {
+			if ( this.parentBar != null && this.pointer != null) {
 				// if this sweet spot is to the left of the parent spot
-				if ( this.sweetSpot.x + this.sweetSpot.width/2 < this.parentBar.getSpotPosition().x + this.parentBar.width + 32) {
+				if ( this.sweetSpot.x + this.sweetSpot.width/2 < pointer.getPointerPos().x + this.parentBar.width + 32) {
 					// if the sweet spot would go beyond the PlayBar, just set it to the right edge of the PlayBar
 					if ( this.sweetSpot.x + this.sweetSpot.width + PlayBar.sweetVelocity > this.x + this.width ) {
 						this.sweetSpot.x = this.x + this.width - this.sweetSpot.width;
@@ -130,7 +132,7 @@ package
 						this.sweetSpot.x += PlayBar.sweetVelocity;
 					}
 				// if the sweet spot is to the right of the parent spot
-				} else if ( this.sweetSpot.x + this.sweetSpot.width/2 > this.parentBar.getSpotPosition().x  + this.parentBar.width + 32) {
+				} else if ( this.sweetSpot.x + this.sweetSpot.width/2 > pointer.getPointerPos().x  + this.parentBar.width + 32) {
 					// if the sweet spot would go beyond the PlayBar, just set it to the right edge of the PlayBar
 					if ( this.sweetSpot.x - PlayBar.sweetVelocity < this.x ) {
 						this.sweetSpot.x = this.x;
