@@ -57,8 +57,9 @@ package
 			add(excitementLevel);
 			FlxG.log('excitementLevelFrame.width: ' + excitementLevelFrame.width);
 
-			add(players[players.push(new FlxSprite(192*players.length,32))-1]);
-			players[players.length-1].makeGraphic(192,288,0xffffff00);
+			//add(players[players.push(new FlxSprite(192*players.length,32))-1]);
+			add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
+			//players[players.length-1].makeGraphic(192,288,0xffffff00);
 			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener))-1]);
 			//FlxG.log('playBars.length: ' + playBars.length);
 
@@ -84,8 +85,12 @@ package
 			var excitementPercentage:Number = excitementScore/excitementThreshold;
 			//FlxG.log("excitementScore: " + excitementScore + "\nexcitementPercentage: " + excitementPercentage);
 			
-			excitementLevel.makeGraphic(excitementPercentage * excitementLevelFrame.width,16,0xff00ff00);
-
+			try {
+				excitementLevel.makeGraphic(excitementPercentage * excitementLevelFrame.width,16,0xff00ff00);
+			} catch (error:ArgumentError) {
+				trace('error in setting excitementLevel width. ignoring.');
+			}
+				
 			if ( players.length < 5 ) {
 				if ( excitementScore > excitementThreshold ) {
 					excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);

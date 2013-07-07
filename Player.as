@@ -20,20 +20,20 @@ package
 		[Embed(source = "assets/characters/BurtReynolds_OuchFace.png")]private static var female_ouchFace_img:Class;
 		
 		//constants
-		private const MALE_ARM_OFFSET_X = -40;
-		private const MALE_ARM_OFFSET_Y = -33;
-		private const MALE_HAND_OFFSET_X = -122;
-		private const MALE_HAND_OFFSET_Y = -35;
-		private const MALE_OFACE_OFFSET_X = -36;
-		private const MALE_OFACE_OFFSET_Y = -123;
-		private const MALE_OUCHFACE_OFFSET_X = -40;
-		private const MALE_OUCHFACE_OFFSET_Y = -120;
-		private const MALE_NORMFACE_OFFSET_X = -36;
-		private const MALE_NORMFACE_OFFSET_Y = -119;
+		private const MALE_ARM_OFFSET_X:Number = -40;
+		private const MALE_ARM_OFFSET_Y:Number = -33;
+		private const MALE_HAND_OFFSET_X:Number = -122;
+		private const MALE_HAND_OFFSET_Y:Number = -35;
+		private const MALE_OFACE_OFFSET_X:Number = -36;
+		private const MALE_OFACE_OFFSET_Y:Number = -123;
+		private const MALE_OUCHFACE_OFFSET_X:Number = -40;
+		private const MALE_OUCHFACE_OFFSET_Y:Number = -120;
+		private const MALE_NORMFACE_OFFSET_X:Number = -36;
+		private const MALE_NORMFACE_OFFSET_Y:Number = -119;
 		
 		//Variables
-		public var xCor:Number;
-		public var yCor:Number;
+		private var _x:Number;
+		private var _y:Number;
 		public var bodySprite:FlxSprite;
 		public var armSprite:FlxSprite;
 		public var handSprite:FlxSprite;
@@ -41,8 +41,8 @@ package
 		
 		public function Player(index:int,xIn:Number,yIn:Number,type:String)
 		{
-			xCor = xIn;
-			yCor = yIn;
+			_x = xIn;
+			_y = yIn;
 			
 			switch (index) {
 			case 0:
@@ -51,24 +51,51 @@ package
 				// do other stuff
 			}
 			
+			try {
+			
 			if (type == "male") {
-				bodySprite = new FlxSprite(xCor, yCor, male_body_img);
-				armSprite = new FlxSprite(xCor + MALE_ARM_OFFSET_X, yCor + MALE_ARM_OFFSET_Y, male_arm_img);
-				handSprite = new FlxSprite(xCor + MALE_HAND_OFFSET_X, yCor + MALE_HAND_OFFSET_Y, male_hand_img);
-				faceSprite = new FlxSprite(xCor + MALE_NORMFACE_OFFSET_X, yCor + MALE_NORMFACE_OFFSET_Y, male_normFace_img);
+				bodySprite = new FlxSprite(x, y, male_body_img);
+				armSprite = new FlxSprite(x + MALE_ARM_OFFSET_X, y + MALE_ARM_OFFSET_Y, male_arm_img);
+				handSprite = new FlxSprite(x + MALE_HAND_OFFSET_X, y + MALE_HAND_OFFSET_Y, male_hand_img);
+				faceSprite = new FlxSprite(x + MALE_NORMFACE_OFFSET_X, y + MALE_NORMFACE_OFFSET_Y, male_normFace_img);
 			} 
 			else if (type == "female") {
-				bodySprite = new FlxSprite(xCor, yCor, female_body_img);
-				armSprite = new FlxSprite(xCor + MALE_ARM_OFFSET_X, yCor + MALE_ARM_OFFSET_Y, female_arm_img);
-				handSprite = new FlxSprite(xCor + MALE_HAND_OFFSET_X, yCor + MALE_HAND_OFFSET_Y, female_hand_img);
-				faceSprite = new FlxSprite(xCor + MALE_NORMFACE_OFFSET_X, yCor + MALE_NORMFACE_OFFSET_Y, female_normFace_img);
+				bodySprite = new FlxSprite(x, y, female_body_img);
+				armSprite = new FlxSprite(x + MALE_ARM_OFFSET_X, y + MALE_ARM_OFFSET_Y, female_arm_img);
+				handSprite = new FlxSprite(x + MALE_HAND_OFFSET_X, y + MALE_HAND_OFFSET_Y, female_hand_img);
+				faceSprite = new FlxSprite(x + MALE_NORMFACE_OFFSET_X, y + MALE_NORMFACE_OFFSET_Y, female_normFace_img);
 			} else {
 				//if the type doesn't match, it'll just load in Burt Reynolds
-				bodySprite = new FlxSprite(xCor, yCor, male_body_img);
-				armSprite = new FlxSprite(xCor + MALE_ARM_OFFSET_X, yCor + MALE_ARM_OFFSET_Y, male_arm_img);
-				handSprite = new FlxSprite(xCor + MALE_HAND_OFFSET_X, yCor + MALE_HAND_OFFSET_Y, male_hand_img);
-				faceSprite = new FlxSprite(xCor + MALE_NORMFACE_OFFSET_X, yCor + MALE_NORMFACE_OFFSET_Y, male_normFace_img);
+				bodySprite = new FlxSprite(x, y, male_body_img);
+				armSprite = new FlxSprite(x + MALE_ARM_OFFSET_X, y + MALE_ARM_OFFSET_Y, male_arm_img);
+				handSprite = new FlxSprite(x + MALE_HAND_OFFSET_X, y + MALE_HAND_OFFSET_Y, male_hand_img);
+				faceSprite = new FlxSprite(x + MALE_NORMFACE_OFFSET_X, y + MALE_NORMFACE_OFFSET_Y, male_normFace_img);
 			}
+			
+			add(bodySprite);
+			add(armSprite);
+			add(handSprite);
+			add(faceSprite);
+			
+			} catch (error:Error) {
+				trace('Failed trying to create FlxSprites from assets within Player');
+			}
+		}
+		
+		public function set x(inX:Number):void {
+			_x = inX;
+		}
+		
+		public function set y(inY:Number):void {
+			_y = inY;
+		}
+		
+		public function get x():Number {
+			return _x;
+		}
+		
+		public function get y():Number {
+			return _y;
 		}
 		
 		/*
