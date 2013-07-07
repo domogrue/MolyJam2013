@@ -12,8 +12,8 @@ package
 
 		private var excitementLevelFrame:FlxSprite;
 		private var excitementLevel:FlxSprite;
-		private var excitementScore:uint = 0;
-		private var excitementThreshold:uint = 100;
+		private var excitementScore:Number = 0;
+		private var excitementThreshold:Number = 100;
 
 		//data
 		[Embed(source = "assets/bottomuiimage0000.png")] public static var bottomuiimage:Class;
@@ -27,6 +27,7 @@ package
 		public static const BAR_OFFSET_Y:Number = 320;
 		public static const BAR_WIDTH:Number = 160;
 		public static const BAR_HEIGHT:Number = 32;
+		public static const EXCITEINCREMENET:Number = 0.5;
 		
 		public var bottomui: FlxSprite;
 		
@@ -77,7 +78,7 @@ package
 		}
 
 		public function gSpotListener():void {
-			excitementScore += 1;
+			excitementScore += EXCITEINCREMENET;
 			var excitementPercentage:Number = excitementScore/excitementThreshold;
 			FlxG.log("excitementScore: " + excitementScore + "\nexcitementPercentage: " + excitementPercentage);
 			
