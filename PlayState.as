@@ -127,7 +127,7 @@ package
 		}
 
 		private function changeToWinState():void {
-
+			FlxG.switchState(new WinState());
 		}
 
 		private function addPlayer():void {
