@@ -8,13 +8,13 @@ package
 	public class Pointer extends FlxGroup
 	{
 		//data
-		[Embed(source = "assets/pointer_length.png")]private static var length_image:Class;
-		[Embed(source = "assets/pointer_tip.png")]private static var tip_image:Class;
-		[Embed(source = "assets/pointer_end.png")] private static var end_image:Class;
+		[Embed(source = "assets/pointer_length.png")]private var length_image:Class;
+		[Embed(source = "assets/pointer_tip.png")]private var tip_image:Class;
+		[Embed(source = "assets/pointer_end.png")] private var end_image:Class;
 		
-		[Embed(source = "assets/pointer2_length.png")]private static var length_image2:Class;
-		[Embed(source = "assets/pointer2_tip.png")]private static var tip_image2:Class;
-		[Embed(source = "assets/pointer2_end.png")] private static var end_image2:Class;
+		[Embed(source = "assets/pointer2_length.png")]private var length_image2:Class;
+		[Embed(source = "assets/pointer2_tip.png")]private var tip_image2:Class;
+		[Embed(source = "assets/pointer2_end.png")] private var end_image2:Class;
 		
 		//constants
 		public static const TIP_HEIGHT:Number = 32;
@@ -27,6 +27,7 @@ package
 		
 		public var tipSprite:FlxSprite;
 		public var lengthSprite:FlxSprite;
+		public var endSprite:FlxSprite;
 		public var playBar:PlayBar;
 		public var hitBox:FlxSprite;
 		public var player:Player;
@@ -35,13 +36,28 @@ package
 		
 		public function Pointer(xIn:Number,yIn:Number,widthIn:Number,lkIn:String,rkIn:String,playBarIn:PlayBar,playerIn:Player)
 		{
+			//try {
 			leftKey = lkIn;
 			rightKey = rkIn;
 			
-			tipSprite = new FlxSprite(xIn, yIn, tip_image);
-			lengthSprite = new FlxSprite(xIn + TIP_WIDTH, yIn, length_image);
+			FlxG.log('playerIn.type: ' + playerIn.type);
+			//try {
+			switch (playerIn.type) {
+				case 'male':
+					tipSprite = new FlxSprite(xIn, yIn, tip_image);
+					lengthSprite = new FlxSprite(xIn + TIP_WIDTH, yIn, length_image);
+					endSprite = new FlxSprite(0,yIn,end_image);
+					break;
+				case 'female':
+					tipSprite = new FlxSprite(xIn, yIn, tip_image2);
+					lengthSprite = new FlxSprite(xIn + TIP_WIDTH, yIn, length_image2);
+					endSprite = new FlxSprite(0,yIn,end_image2);
+					break;
+			}
 			lengthSprite.origin.x = lengthSprite.origin.y = 0;
 			lengthSprite.scale.x = widthIn - TIP_WIDTH;
+			endSprite.x = lengthSprite.x + lengthSprite.scale.x;
+
 			playBar = playBarIn;
 			player = playerIn;
 
@@ -51,6 +67,8 @@ package
 			
 			this.add(this.tipSprite);
 			this.add(this.lengthSprite);
+			this.add(this.endSprite);
+			//} catch(e:Error) { FlxG.log('Error in Pointer.create: ' + e); }
 			
 			FlxG.log('creating Pointer complete');
 		}
@@ -86,6 +104,7 @@ package
 			}
 			//trace("MovePointerCalled");
 			lengthSprite.x = tipSprite.x+TIP_WIDTH;
+			endSprite.x = lengthSprite.x + lengthSprite.scale.x;
 			hitBox.x = tipSprite.x;
 		}
 

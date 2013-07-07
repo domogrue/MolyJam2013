@@ -38,6 +38,7 @@ package
 		private var _wiggle_count:Number = 0;
 		private var _sounds:Array;
 
+		public var type:String;
 		public var wholeSprite:FlxSprite;
 		
 		public function Player(index:int,xIn:Number,yIn:Number,type:String)
@@ -52,6 +53,8 @@ package
 			case 1:
 				// do other stuff
 			}
+
+			this.type = type;
 			
 			if (type == "male") {
 				wholeSprite = new FlxSprite(x, y, male_img);
