@@ -23,13 +23,17 @@ package
 		public static const WIDTH:Number = 960;
 		public static const HEIGHT:Number = 480;
 		public static const BAR_OFFSET_X:Number = 16;
-		public static const BAR_OFFSET_Y:Number = 320;
+		//public static const BAR_OFFSET_Y:Number = 320;
+		public static const BAR_OFFSET_Y:Number = 280;
 		public static const BAR_WIDTH:Number = 160;
 		public static const BAR_HEIGHT:Number = 32;
 		public static const EXCITEINCREMENET:Number = 0.5;
 		
 		private var bottomui: FlxSprite;
 		private var background:FlxSprite;
+
+		private var playerGroup:FlxGroup;
+		private var uiGroup:FlxGroup;
 		
 		public function PlayState()
 		{
@@ -42,28 +46,34 @@ package
 			players = new Array();
 			pointers = new Array();
 
+			playerGroup = new FlxGroup();
+			uiGroup = new FlxGroup();
+
 			add(new FlxText(0,0,100,"INSERT GAME HERE"));
 			
 			background = new FlxSprite(0,0,backgroundImg);
 			add(background);
 
+			add(playerGroup);
+			add(uiGroup);
+
 			//make UI image
-			bottomui = new FlxSprite(0, 320, bottomuiimage);
-			add(bottomui);
+			bottomui = new FlxSprite(0, BAR_OFFSET_Y, bottomuiimage);
+			uiGroup.add(bottomui);
 
 			
 			excitementLevelFrame = new FlxSprite(0, BAR_OFFSET_Y);
 			excitementLevelFrame.makeGraphic(192,16,0xff000000);
 			excitementLevel = new FlxSprite(0, BAR_OFFSET_Y);
 			excitementLevel.makeGraphic(1,16,0xff00ff00);
-			add(excitementLevelFrame);
-			add(excitementLevel);
+			uiGroup.add(excitementLevelFrame);
+			uiGroup.add(excitementLevel);
 			FlxG.log('excitementLevelFrame.width: ' + excitementLevelFrame.width);
 
 			//add(players[players.push(new FlxSprite(192*players.length,32))-1]);
-			add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
+			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
 			//players[players.length-1].makeGraphic(192,288,0xffffff00);
-			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
+			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
 			//FlxG.log('playBars.length: ' + playBars.length);
 
 
@@ -109,10 +119,10 @@ package
 
 			
 			//add(players[players.push(new FlxSprite(192*players.length,32))-1]);
-			add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
+			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
 			//players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
 			try {
-			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
+			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, players.length-1, gSpotListener, players[players.length-1], pointers[players.length-1], playBars[playBars.length-1]))-1]);
 
 			var keyArr:Array = new Array();
 			switch (players.length) {
@@ -133,7 +143,7 @@ package
 					keyArr.push('P');
 					break
 			}
-			add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, keyArr[0], keyArr[1], playBars[playBars.length - 2])) - 1]);
+			uiGroup.add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, keyArr[0], keyArr[1], playBars[playBars.length - 2])) - 1]);
 			
 			playBars[playBars.length-1].pointer = pointers[pointers.length-1];
 			} catch (error:Error) {
