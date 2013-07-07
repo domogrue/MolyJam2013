@@ -4,6 +4,8 @@ package
 
 	public class PlayBar extends FlxGroup
 	{
+		[Embed(source = "assets/player1_hand.png")]private var player1handImg:Class;
+
 		public static const sweetSpotRange:Number = 30;
 		public static const spotVelocity:Number = 1;
 		public static const sweetVelocity:Number = 0.7;
@@ -25,6 +27,7 @@ package
 
 		private var isForward:Boolean = true;
 		private var gSpotDirection:int = 1;
+		private var _player:Player;
 
 		public var index:uint;
 		public var parentBar:PlayBar;
@@ -35,7 +38,7 @@ package
 		// unused for players other than 0
 		private var player1hand:FlxSprite;
 
-		public function PlayBar(x:Number, y:Number, width:Number, height:Number,  index:uint, gSpotCallback:Function, pointerIn:Pointer = null, parentBar:PlayBar = null)
+		public function PlayBar(x:Number, y:Number, width:Number, height:Number,  index:uint, gSpotCallback:Function, player:Player = null, pointerIn:Pointer = null, parentBar:PlayBar = null)
 		{
 			super();
 
@@ -43,6 +46,7 @@ package
 			this._y = y;
 			this._width = width;
 			this._height = height;
+			this._player = player;
 
 			this._gSpotCallback = gSpotCallback;
 
@@ -74,8 +78,8 @@ package
 			this.add(this.sweetSpot);
 
 			if ( this.index == 0 ) {
-				this.player1hand = new FlxSprite(this.gSpot.x, this.gSpot.y-3);
-				this.player1hand.makeGraphic(player1handWidth, this.gSpot.height + 6, 0xfff5c32f);
+				this.player1hand = new FlxSprite(this.gSpot.x, this.gSpot.y-3, player1handImg);
+				//this.player1hand.makeGraphic(player1handWidth, this.gSpot.height + 6, 0xfff5c32f);
 				this.add(this.player1hand);
 			}
 
@@ -199,12 +203,18 @@ package
 			if ( this.playerSpot.x > this.gSpot.x && 
 						this.playerSpot.x + this.playerSpot.width < this.gSpot.x + this.gSpot.width ) {
 				_gSpotCallback();
+				if ( this._player != null ) {
+					this._player.wiggle();
+				}
 			}
 
 			if ( this.index == 0 ) {
 				if ( this.player1hand.x + this.player1hand.width/2 > this.gSpot.x &&
 							this.player1hand.x + this.player1hand.width/2 < this.gSpot.x + this.gSpot.width ) {
 					_gSpotCallback();
+					if ( this._player != null ) {
+						this._player.wiggle();
+					}
 				}
 			}
 		}
