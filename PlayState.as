@@ -9,6 +9,7 @@ package
 		private var playBars:Array;
 		private var players:Array;
 		private var pointers:Array;
+		private var pleasureHearts:Array;
 
 		private var excitementLevelFrame:FlxSprite;
 		private var excitementLevel:FlxSprite;
@@ -18,6 +19,8 @@ package
 		//data
 		[Embed(source = "assets/bottomuiimage0000.png")] private var bottomuiimage:Class;
 		[Embed(source="assets/pattern_001_1600x1200_texture_wallpaper.jpg")] private var backgroundImg:Class;
+		[Embed(source="assets/pleasureHeart.png")] private var heartImg:Class;
+
 		
 		//CONSTANTS
 		public static const WIDTH:Number = 960;
@@ -28,6 +31,7 @@ package
 		public static const BAR_WIDTH:Number = 160;
 		public static const BAR_HEIGHT:Number = 32;
 		public static const EXCITEINCREMENET:Number = 0.2;
+		public static const HEART_WIDTH:Number = 32;
 		//public static const EXCITEINCREMENET:Number = 100;
 		
 		private var bottomui: FlxSprite;
@@ -46,6 +50,7 @@ package
 			playBars = new Array();
 			players = new Array();
 			pointers = new Array();
+			pleasureHearts = new Array();
 
 			playerGroup = new FlxGroup();
 			uiGroup = new FlxGroup();
@@ -67,31 +72,19 @@ package
 			excitementLevelFrame.makeGraphic(192,16,0xff000000);
 			excitementLevel = new FlxSprite(0, BAR_OFFSET_Y);
 			excitementLevel.makeGraphic(1,16,0xff00ff00);
-			uiGroup.add(excitementLevelFrame);
-			uiGroup.add(excitementLevel);
+			//uiGroup.add(excitementLevelFrame);
+			//uiGroup.add(excitementLevel);
 			FlxG.log('excitementLevelFrame.width: ' + excitementLevelFrame.width);
 
-			//add(players[players.push(new FlxSprite(192*players.length,32))-1]);
+			do {
+				uiGroup.add(pleasureHearts[pleasureHearts.push(new FlxSprite(32*pleasureHearts.length,BAR_OFFSET_Y))-1]);
+				pleasureHearts[pleasureHearts.length-1].loadGraphic(heartImg,true,false,32,32);
+				pleasureHearts[pleasureHearts.length-1].frame = 0;
+			} while ( pleasureHearts[pleasureHearts.length-1].x + pleasureHearts[pleasureHearts.length-1].width*2 <= excitementLevelFrame.width )
+
 			playerGroup.add(players[players.push(new Player(0,192*players.length,32,'male'))-1]);
-			//players[players.length-1].makeGraphic(192,288,0xffffff00);
 			uiGroup.add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 0, gSpotListener, players[players.length-1]))-1]);
 			//FlxG.log('playBars.length: ' + playBars.length);
-
-
-			/*add(players[players.push(new FlxSprite(192*players.length,32))-1]);
-			players[players.length-1].makeGraphic(192,288,0xffff00ff);
-			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 1, gSpotListener, pointers[players.length-1], playBars[playBars.length-1]))-1]);
-			add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-1].y + 32, 128, 'E', 'R', playBars[playBars.length - 2])) - 1]);
-			playBars[1].pointer = pointers[0];
-			//FlxG.log('playBars.length: ' + playBars.length);
-
-
-			add(players[players.push(new FlxSprite(192*players.length,32))-1]);
-			players[players.length - 1].makeGraphic(192, 288, 0xff00ffff);
-			add(playBars[playBars.push(new PlayBar(players[players.length-1].x + BAR_OFFSET_X, players[players.length-1].y + BAR_OFFSET_Y, BAR_WIDTH, BAR_HEIGHT, 2, gSpotListener, pointers[players.length-1], playBars[playBars.length-1]))-1]);
-			add(pointers[pointers.push(new Pointer(playBars[playBars.length-2].x + BAR_WIDTH/2, playBars[playBars.length-2].y + 32, 128, 'T', 'Y', playBars[playBars.length - 2])) - 1]);
-			playBars[2].pointer = pointers[1];
-			//FlxG.log('playBars.length: ' + playBars.length);*/
 		}
 
 		public function gSpotListener(direction:Boolean):void {
@@ -102,6 +95,12 @@ package
 					if ( excitementScore > excitementThreshold ) {
 						excitementLevelFrame.makeGraphic(excitementLevelFrame.width + 192,16,0xff000000);
 						excitementThreshold += 100;
+
+						do {
+							uiGroup.add(pleasureHearts[pleasureHearts.push(new FlxSprite(32*pleasureHearts.length,BAR_OFFSET_Y))-1]);
+							pleasureHearts[pleasureHearts.length-1].loadGraphic(heartImg,true,false,32,32);
+							pleasureHearts[pleasureHearts.length-1].frame = 0;
+						} while ( pleasureHearts[pleasureHearts.length-1].x + pleasureHearts[pleasureHearts.length-1].width*2 <= excitementLevelFrame.width )
 
 						addPlayer();
 					}
@@ -187,6 +186,20 @@ package
 		override public function update():void
 		{
 			super.update();
+
+			updateHearts();
+		}
+
+		private function updateHearts():void {
+			for each ( var heart:FlxSprite in pleasureHearts ) {
+				if ( excitementLevel.width > heart.x + heart.width ) {
+					heart.frame = 2;
+				} else if ( excitementLevel.width > heart.x + heart.width/2 ) {
+					heart.frame = 1;
+				} else {
+					heart.frame = 0;
+				}
+			}
 		}
 	}
 }
