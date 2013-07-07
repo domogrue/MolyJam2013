@@ -4,7 +4,11 @@ package
 
 	public class PlayBar extends FlxGroup
 	{
+		[Embed(source = "assets/playbar.png")]private var playbar_img:Class;
 		[Embed(source = "assets/player1_hand.png")]private var player1handImg:Class;
+		[Embed(source = "assets/gspot.png")]private var gSpot_img:Class;
+		[Embed(source = "assets/sweetSpot.png")]private var sweetSpot_img:Class;
+		[Embed(source = "assets/playbar_player1.png")]private var playbar_player1_img:Class;
 
 		public static const sweetSpotRange:Number = 30;
 		public static const spotVelocity:Number = 1;
@@ -57,22 +61,27 @@ package
 			this.pointer = pointerIn;
 			this.parentBar = parentBar;
 			
-			this.frame = new FlxSprite(x,y);
-			this.frame.makeGraphic(width, height, 0xff0000ff);
+			this.frame = new FlxSprite(x,y,playbar_img);
+			//this.frame.makeGraphic(width, height, 0xff0000ff);
 
 			this.playerSpot = new FlxSprite(x + width/2 - PlayBar.spotRadius, y);
 			this.playerSpot.makeGraphic(PlayBar.spotRadius*2, this.height, 0xffff0000);
 
 			if ( parentBar == null ) {
-				this.sweetSpot = new FlxSprite(x + width/10, y);
-				this.sweetSpot.makeGraphic(width - width/5,height,0xffffffff);
+				this.sweetSpot = new FlxSprite(x, y, playbar_player1_img);
+				//this.sweetSpot.makeGraphic(width - width/5,height,0xffffffff);
 			} else {
-				this.sweetSpot = new FlxSprite(parentBar.getSpotPosition().x - PlayBar.sweetSpotRange + parentBar.width + 32, y);
-				this.sweetSpot.makeGraphic(PlayBar.sweetSpotRange*2,height,0xffffffff);
+				this.sweetSpot = new FlxSprite(parentBar.getSpotPosition().x - PlayBar.sweetSpotRange + parentBar.width + 32, y,sweetSpot_img);
+				//this.sweetSpot.makeGraphic(PlayBar.sweetSpotRange*2,height,0xffffffff);
 			}
 
-			this.gSpot = new FlxSprite(this.sweetSpot.x + Math.floor(Math.random()*this.sweetSpot.width) - PlayBar.gSpotWidth, this.y);
-			this.gSpot.makeGraphic(PlayBar.gSpotWidth, this.height, 0xff00ff00);
+			//gSpot setup
+			this.gSpot = new FlxSprite(this.sweetSpot.x + Math.floor(Math.random() * this.sweetSpot.width) - PlayBar.gSpotWidth, this.y, gSpot_img);
+			this.gSpot.loadGraphic(gSpot_img, true, true, 16, 32);
+			this.gSpot.addAnimation("OFF", [0]);
+			this.gSpot.addAnimation("ON", [1]);
+			
+			//this.gSpot.makeGraphic(PlayBar.gSpotWidth, this.height, 0xff00ff00);
 
 			this.add(this.frame);
 			this.add(this.sweetSpot);
@@ -222,7 +231,10 @@ package
 			if ( this.index == 0 ) {
 				if ( this.player1hand.x + this.player1hand.width/2 > this.gSpot.x &&
 							this.player1hand.x + this.player1hand.width/2 < this.gSpot.x + this.gSpot.width ) {
+					
 					gSpotCallback(true);
+					this.gSpot.play("ON");
+					
 					if ( this.player != null ) {
 						this.player.wiggle();
 						if ( Math.floor(Math.random()*240) < 1 ) {
@@ -233,6 +245,9 @@ package
 							this.player.playSound();
 						}
 					}
+				}
+				else {
+					this.gSpot.play("OFF");
 				}
 			}
 		}
