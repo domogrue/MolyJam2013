@@ -5,7 +5,7 @@ package
 
 	public class WinState extends FlxState
 	{
-		[Embed(source = "assets/credits.jpg")]private var image;
+		[Embed(source = "assets/credits.jpg")]private var image:Class;
 		private var sprite:FlxSprite;
 		
 		public function WinState()
