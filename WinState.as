@@ -20,6 +20,7 @@ package
 			t.alignment = "center";
 			add(t);*/
 			sprite = new FlxSprite(0, 0, image);
+			add(sprite);
 		}
 
 		override public function update():void
